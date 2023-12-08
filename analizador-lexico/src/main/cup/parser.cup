@@ -1,0 +1,53 @@
+package com.p1;
+
+import java_cup.runtime.*;
+import java.lang.*;
+
+action code {:
+
+    public void hola(){
+        System.out.println("Hola");
+    }
+    public void adios(){
+            System.out.println("Adios");
+        }
+
+
+:}
+parser code {:
+    Lexer lex;
+
+    @SuppressWarnings("deprecation")
+    public parser(Lexer lex){
+        this.lex=lex;
+        this.symbolFactory = new DefaultSymbolFactory();
+    }
+:}
+
+init with {: :};
+scan with {: return lex.next_token(); :};
+
+
+//Simbolos terminales
+terminal SEMI, PLUS, MINUS, TIMES, UMINUS, LPAREN, RPAREN;
+terminal ABSTRACT,PUBLIC, PRIVATE;
+terminal IDENTIFIER, INTEGER_LITERAL, STRING_LITERAL;
+terminal Integer NUMBER;
+terminal EQ, EQEQ;
+terminal BREAK, BOOLEAN;
+
+
+//Simbolos no terminales
+non terminal miLenguaje;
+
+start with miLenguaje;
+
+miLenguaje ::= //{:
+        //    hola();
+        //:}
+        IDENTIFIER
+        //{:
+        //    adios();
+        //:}
+        ;
+
