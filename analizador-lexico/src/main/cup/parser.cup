@@ -3,6 +3,7 @@ package com.p1;
 import java_cup.runtime.*;
 import java.lang.*;
 
+
 action code {:
 
     public void hola(){
@@ -12,8 +13,8 @@ action code {:
             System.out.println("Adios");
         }
 
-
 :}
+
 parser code {:
     Lexer lex;
 

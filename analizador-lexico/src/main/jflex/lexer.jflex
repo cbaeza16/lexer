@@ -72,6 +72,7 @@ DecIntegerLiteral = 0 | [1-9][0-9]* //CAMBIAR PARA QUE PERMITA NEGATIVO
      
   /* literals */
   {DecIntegerLiteral}            { return symbol(sym.INTEGER_LITERAL); }
+
   \"                             { string.setLength(0); yybegin(STRING); }
 
   /* operators */

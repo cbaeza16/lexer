@@ -34,18 +34,6 @@
   </dependencies>
 
   <build>
-    <sourceDirectory>src/main/java</sourceDirectory>
-      <resources>
-          <resource>
-              <directory>src/main</directory>
-          </resource>
-          <resource>
-              <directory>target/generated-sources/jflex</directory>
-          </resource>
-          <resource>
-              <directory>target/generated-sources/cup</directory>
-          </resource>
-      </resources>
 
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
@@ -91,20 +79,7 @@
       </plugins>
     </pluginManagement>
       <plugins>
-      <!-- plugin JFlex -->
-        <plugin>
-          <groupId>de.jflex</groupId>
-          <artifactId>jflex-maven-plugin</artifactId>
-          <version>1.9.1</version>
-          <executions>
-            <execution>
-              <goals>
-                <goal>generate</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        <!-- plugin Cup -->
+      <!-- plugin Cup -->
         <plugin>
           <groupId>com.github.vbmacher</groupId>
           <artifactId>cup-maven-plugin</artifactId>
@@ -117,9 +92,46 @@
             </execution>
           </executions>
           <configuration>
-            <outputDirectory>${project.build.directory}/generated-sources/cup</outputDirectory>
+            <outputDirectory>src/main/java</outputDirectory>
           </configuration>
         </plugin>
+      <!-- plugin JFlex -->
+        <plugin>
+          <groupId>de.jflex</groupId>
+          <artifactId>jflex-maven-plugin</artifactId>
+          <version>1.9.1</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>generate</goal>
+              </goals>
+              <configuration>
+              <outputDirectory>src/main/java</outputDirectory>
+              <lexDefinitions>
+                <lexDefinition>src/main/jflex</lexDefinition>
+              </lexDefinitions>
+            </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        
+        <!-- plugin clase main -->
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.0.0</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>java</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <mainClass>com.p1.Main</mainClass>
+            </configuration>
+        </plugin>
       </plugins>
+      
   </build>
 </project>
