@@ -24,7 +24,7 @@ public class Main {
             while(true){
                 token = lex.next_token();
                 if(token.sym != 0){
-                    System.out.println("Token: "+token.sym+", Valor: "+(token.value==null?lex.yytext():token.value.toString()));
+                    System.out.println("Token: "+token.sym+", Lexema: "+(token.value==null?lex.yytext():token.value.toString()));
                 }else{
                     System.out.println("Cantidad de lexemas encontrados: "+i);
                     return;

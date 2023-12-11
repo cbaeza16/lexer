@@ -1071,8 +1071,8 @@ public class Lexer implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { throw new Error("Cadena ilegal <"+
-                                                        yytext()+">");
+            { System.err.println("Error léxico en la línea " + yyline + ": Cadena ilegal <" + yytext() + ">");
+    yybegin(YYINITIAL); // Reinicia el análisis para continuar con la siguiente línea
             }
           // fall through
           case 58: break;
@@ -1112,7 +1112,7 @@ public class Lexer implements java_cup.runtime.Scanner {
           // fall through
           case 65: break;
           case 9:
-            { return symbol(sym.COMETA)
+            { return symbol(sym.COMETA);
             }
           // fall through
           case 66: break;
@@ -1122,17 +1122,17 @@ public class Lexer implements java_cup.runtime.Scanner {
           // fall through
           case 67: break;
           case 11:
-            { return symbol(sym.BASTON)
+            { return symbol(sym.BASTON);
             }
           // fall through
           case 68: break;
           case 12:
-            { return symbol(sym.TURENO)
+            { return symbol(sym.TURENO);
             }
           // fall through
           case 69: break;
           case 13:
-            { return symbol(sym.DASHER)
+            { return symbol(sym.DASHER) ;
             }
           // fall through
           case 70: break;
@@ -1182,7 +1182,7 @@ public class Lexer implements java_cup.runtime.Scanner {
           // fall through
           case 79: break;
           case 23:
-            { return symbol(sym.DANCER)
+            { return symbol(sym.DANCER);
             }
           // fall through
           case 80: break;
@@ -1209,17 +1209,17 @@ public class Lexer implements java_cup.runtime.Scanner {
           // fall through
           case 84: break;
           case 28:
-            { return symbol(sym.PRANCER)
+            { return symbol(sym.PRANCER);
             }
           // fall through
           case 85: break;
           case 29:
-            { return symbol(sym.QUIEN)
+            { return symbol(sym.QUIEN);
             }
           // fall through
           case 86: break;
           case 30:
-            { return symbol(sym.GRINCH)
+            { return symbol(sym.GRINCH);
             }
           // fall through
           case 87: break;

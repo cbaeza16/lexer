@@ -8,47 +8,111 @@ package com.p1;
 /** CUP generated interface containing symbol constants. */
 public interface sym {
   /* terminals */
-  public static final int TIMES = 5;
-  public static final int PLUS = 3;
-  public static final int RPAREN = 8;
-  public static final int PRIVATE = 11;
-  public static final int SEMI = 2;
-  public static final int IDENTIFIER = 12;
-  public static final int LPAREN = 7;
-  public static final int PUBLIC = 10;
-  public static final int STRING_LITERAL = 14;
-  public static final int BOOLEAN = 19;
+  public static final int l_SANTA = 32;
+  public static final int FINREGALO = 51;
+  public static final int HADA = 40;
+  public static final int PERSONA = 20;
+  public static final int CIERRACUENTO = 34;
+  public static final int DANCER = 7;
+  public static final int DUENDE = 41;
+  public static final int ENTREGA = 47;
+  public static final int CIERRAREGALO = 38;
+  public static final int ABREEMPAQUE = 35;
+  public static final int RODOLFO = 3;
+  public static final int FATHER_CHRISTMAS = 21;
+  public static final int CIERRAEMPAQUE = 36;
+  public static final int l_SANTA_CLAUS = 29;
+  public static final int l_PAPA_NOEL = 30;
+  public static final int l_SAN_NICOLAS = 31;
+  public static final int NARRA = 49;
+  public static final int l_FFATHER_CHRISTMAS = 27;
+  public static final int HACE = 43;
+  public static final int l_TFATHER_CHRISTMAS = 28;
+  public static final int ENVUELVE = 42;
+  public static final int COMETA = 5;
+  public static final int SANTA_CLAUS = 22;
+  public static final int PAPA_NOEL = 23;
+  public static final int TURENO = 4;
+  public static final int SAN_NICOLAS = 24;
+  public static final int GRINCH = 10;
   public static final int EOF = 0;
-  public static final int NUMBER = 15;
-  public static final int BREAK = 18;
-  public static final int MINUS = 4;
+  public static final int CORTA = 46;
+  public static final int MELCHOR = 17;
+  public static final int REVISA = 44;
   public static final int error = 1;
-  public static final int EQ = 16;
-  public static final int ABSTRACT = 9;
-  public static final int INTEGER_LITERAL = 13;
-  public static final int EQEQ = 17;
-  public static final int UMINUS = 6;
+  public static final int GASPAR = 18;
+  public static final int ABRECUENTO = 33;
+  public static final int SNOWBALL = 11;
+  public static final int PEPPER = 13;
+  public static final int ESCUCHA = 50;
+  public static final int ABREREGALO = 37;
+  public static final int PRANCER = 8;
+  public static final int DASHER = 6;
+  public static final int ENVIA = 45;
+  public static final int SHINNY = 15;
+  public static final int BALTAZAR = 19;
+  public static final int BUSHY = 12;
+  public static final int SUGARPLUM = 14;
+  public static final int SANTA = 25;
+  public static final int ELFO = 39;
+  public static final int PERE_NOEL = 26;
+  public static final int WUNORSE = 16;
+  public static final int QUIEN = 9;
+  public static final int BASTON = 48;
+  public static final int IDENTIFIER = 2;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "SEMI",
-  "PLUS",
-  "MINUS",
-  "TIMES",
-  "UMINUS",
-  "LPAREN",
-  "RPAREN",
-  "ABSTRACT",
-  "PUBLIC",
-  "PRIVATE",
   "IDENTIFIER",
-  "INTEGER_LITERAL",
-  "STRING_LITERAL",
-  "NUMBER",
-  "EQ",
-  "EQEQ",
-  "BREAK",
-  "BOOLEAN"
+  "RODOLFO",
+  "TURENO",
+  "COMETA",
+  "DASHER",
+  "DANCER",
+  "PRANCER",
+  "QUIEN",
+  "GRINCH",
+  "SNOWBALL",
+  "BUSHY",
+  "PEPPER",
+  "SUGARPLUM",
+  "SHINNY",
+  "WUNORSE",
+  "MELCHOR",
+  "GASPAR",
+  "BALTAZAR",
+  "PERSONA",
+  "FATHER_CHRISTMAS",
+  "SANTA_CLAUS",
+  "PAPA_NOEL",
+  "SAN_NICOLAS",
+  "SANTA",
+  "PERE_NOEL",
+  "l_FFATHER_CHRISTMAS",
+  "l_TFATHER_CHRISTMAS",
+  "l_SANTA_CLAUS",
+  "l_PAPA_NOEL",
+  "l_SAN_NICOLAS",
+  "l_SANTA",
+  "ABRECUENTO",
+  "CIERRACUENTO",
+  "ABREEMPAQUE",
+  "CIERRAEMPAQUE",
+  "ABREREGALO",
+  "CIERRAREGALO",
+  "ELFO",
+  "HADA",
+  "DUENDE",
+  "ENVUELVE",
+  "HACE",
+  "REVISA",
+  "ENVIA",
+  "CORTA",
+  "ENTREGA",
+  "BASTON",
+  "NARRA",
+  "ESCUCHA",
+  "FINREGALO"
   };
 }
 

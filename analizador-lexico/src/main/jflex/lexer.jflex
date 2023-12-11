@@ -95,14 +95,14 @@ whitespace = [ \t\n]
   /* operators */
   "<="                            { return symbol(sym.ENTREGA); }
   "+"                            { return symbol(sym.RODOLFO); }
-  "++"                           { return symbol(sym.QUIEN)}
-  "-"                            { return symbol(sym.TURENO) }
-  "--"                           { return symbol(sym.GRINCH) }
-  "*"                            { return symbol(sym.COMETA) }
-  "/"                            { return symbol(sym.DASHER) }
-  ","                            { return symbol(sym.BASTON)}
-  "~"                            { return symbol(sym.DANCER)}
-  "**"                            { return symbol(sym.PRANCER)}     
+  "++"                           { return symbol(sym.QUIEN);}
+  "-"                            { return symbol(sym.TURENO);}
+  "--"                           { return symbol(sym.GRINCH); }
+  "*"                            { return symbol(sym.COMETA); }
+  "/"                            { return symbol(sym.DASHER) ;}
+  ","                            { return symbol(sym.BASTON);}
+  "~"                            { return symbol(sym.DANCER);}
+  "**"                            { return symbol(sym.PRANCER);}     
   
   /* relacionales */
   "=="                           { return symbol(sym.SNOWBALL); }
@@ -149,6 +149,8 @@ whitespace = [ \t\n]
   \\                             { string.append('\\'); }
   }
 
-    //En caso de error
-    [^]                              { throw new Error("Cadena ilegal <"+
-                                                        yytext()+">"); }
+// En caso de error
+[^] {
+    System.err.println("Error léxico en la línea " + yyline + ": Cadena ilegal <" + yytext() + ">");
+    yybegin(YYINITIAL); // Reinicia el análisis para continuar con la siguiente línea
+}
