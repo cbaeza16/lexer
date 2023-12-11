@@ -37,48 +37,96 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 
 Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
 
-TraditionalComment   = "/*" [^*] ~"*/" | "/*" "*"+ "/"
+TraditionalComment   = "/_" [^_] ~"_/" | "/_" "_"+ "/"
 
 // Comment can be the last line of the file, without line terminator.
-EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}?
+EndOfLineComment     = "@" {InputCharacter}* {LineTerminator}?
 DocumentationComment = "/**" {CommentContent} "*"+ "/"
 CommentContent       = ( [^*] | \*+ [^/*] )*
 
 Identifier = [:jletter:] [:jletterdigit:]*
-DecIntegerLiteral = 0 | [1-9][0-9]* //CAMBIAR PARA QUE PERMITA NEGATIVO
 
-//digit =[0-9]
-//noCeroDigit = [1-9]
-//DecIntegerLiteral = (-?{noCeroDigit}{digit}*)
-//letter = [a-zA-Z]
-//whitespace = [ \t\n]
+digit =[0-9]
+noCeroDigit = [1-9]
+IntegerLiteral = (0|-?{noCeroDigit}{digit}*)
+FloatLiteral = (0.0|-?{noCeroDigit}{digit}*.{digit}*)
+letter = [a-zA-Z]
+whitespace = [ \t\n]
 
 
 %state STRING
 %%
 
 /* keywords */
-<YYINITIAL> "abstract"           { return symbol(sym.ABSTRACT); }
-<YYINITIAL> "boolean"            { return symbol(sym.BOOLEAN); }
-<YYINITIAL> "break"              { return symbol(sym.BREAK); }
-//<YYINITIAL> "int"              { return symbol(sym.INT); }
-//<YYINITIAL> "float"              { return symbol(sym.FLOAT); }
-//<YYINITIAL> "string"              { return symbol(sym.STRING); }
-//<YYINITIAL> "char"              { return symbol(sym.CHAR); }
+<YYINITIAL> "abstract"           { return symbol(sym.PERE_NOEL); }
+
+<YYINITIAL> "boolean"            { return symbol(sym.FATHER_CHRISTMAS); }
+<YYINITIAL> "int"              { return symbol(sym.SANTA_CLAUS); }
+<YYINITIAL> "float"              { return symbol(sym.PAPA_NOEL); }
+<YYINITIAL> "string"              { return symbol(sym.SAN_NICOLAS); }
+<YYINITIAL> "char"              { return symbol(sym.SANTA); }
+
+<YYINITIAL> "true"              { return symbol(sym.l_TFATHER_CHRISTMAS); }
+<YYINITIAL> "false"              { return symbol(sym.l_FFATHER_CHRISTMAS); }
+
+<YYINITIAL> "if"              { return symbol(sym.ELFO); }
+<YYINITIAL> "elif"              { return symbol(sym.HADA); }
+<YYINITIAL> "else"              { return symbol(sym.DUENDE); }
+<YYINITIAL> "for"              { return symbol(sym.ENVUELVE); }
+<YYINITIAL> "do"              { return symbol(sym.HACE); }
+<YYINITIAL> "until"              { return symbol(sym.REVISA); }
+<YYINITIAL> "return"              { return symbol(sym.ENVIA); }
+<YYINITIAL> "break"              { return symbol(sym.CORTA); }
+
+<YYINITIAL> "print"              { return symbol(sym.NARRA); }
+<YYINITIAL> "read"              { return symbol(sym.ESCUCHA); }
 
 <YYINITIAL> {
   /* identifiers */ 
-  {Identifier}                   { return symbol(sym.IDENTIFIER); }
+  {Identifier}                   { return symbol(sym.PERSONA); }
      
   /* literals */
-  {DecIntegerLiteral}            { return symbol(sym.INTEGER_LITERAL); }
+  {IntegerLiteral}            { return symbol(sym.l_SANTA_CLAUS); }
+  {FloatLiteral}            { return symbol(sym.l_PAPA_NOEL); }
+  {letter}            { return symbol(sym.l_SANTA); }
 
   \"                             { string.setLength(0); yybegin(STRING); }
 
   /* operators */
-  "="                            { return symbol(sym.EQ); }
-  "=="                           { return symbol(sym.EQEQ); }
-  "+"                            { return symbol(sym.PLUS); }
+  "<="                            { return symbol(sym.ENTREGA); }
+  "+"                            { return symbol(sym.RODOLFO); }
+  "++"                           { return symbol(sym.QUIEN)}
+  "-"                            { return symbol(sym.TURENO) }
+  "--"                           { return symbol(sym.GRINCH) }
+  "*"                            { return symbol(sym.COMETA) }
+  "/"                            { return symbol(sym.DASHER) }
+  ","                            { return symbol(sym.BASTON)}
+  "~"                            { return symbol(sym.DANCER)}
+  "**"                            { return symbol(sym.PRANCER)}     
+  
+  /* relacionales */
+  "=="                           { return symbol(sym.SNOWBALL); }
+  "<"                           { return symbol(sym.BUSHY); }
+  "=<"                           { return symbol(sym.PEPPER); }
+  ">"                           { return symbol(sym.SUGARPLUM); }
+  "=>"                           { return symbol(sym.SHINNY); }
+  "!="                           { return symbol(sym.WUNORSE); }
+
+  /* logicos */ 
+  "#"                           { return symbol(sym.MELCHOR); }
+  "^"                           { return symbol(sym.GASPAR); }
+  "!"                           { return symbol(sym.BALTAZAR); }
+ 
+  /* parentesis*/
+  "("                           { return symbol(sym.ABRECUENTO); }
+  ")"                           { return symbol(sym.CIERRACUENTO); }
+  "["                           { return symbol(sym.ABREEMPAQUE); }
+  "]"                           { return symbol(sym.CIERRAEMPAQUE); }
+  "{"                           { return symbol(sym.ABREREGALO); }
+  "}"                           { return symbol(sym.CIERRAREGALO); }
+
+  /* final de exoresion */
+  "|"                           { return symbol(sym.FINREGALO); }
 
   /* comments */
   {Comment}                      { /* ignore */ }
@@ -90,7 +138,7 @@ DecIntegerLiteral = 0 | [1-9][0-9]* //CAMBIAR PARA QUE PERMITA NEGATIVO
 //Cuando lo reconoce como String
 <STRING> {
   \"                             { yybegin(YYINITIAL); 
-                                    return symbol(sym.STRING_LITERAL, 
+                                    return symbol(sym.l_SAN_NICOLAS, 
                                     string.toString()); }
   [^\n\r\"\\]+                   { string.append( yytext() ); }
   \\t                            { string.append('\t'); }

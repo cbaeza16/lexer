@@ -28,14 +28,29 @@ parser code {:
 init with {: :};
 scan with {: return lex.next_token(); :};
 
-
-//Simbolos terminales
-terminal SEMI, PLUS, MINUS, TIMES, UMINUS, LPAREN, RPAREN;
-terminal ABSTRACT,PUBLIC, PRIVATE;
-terminal IDENTIFIER, INTEGER_LITERAL, STRING_LITERAL;
-terminal Integer NUMBER;
-terminal EQ, EQEQ;
-terminal BREAK, BOOLEAN;
+//-----Simbolos terminales navideños------
+//Operadores aritmeticos bianrios
+teminal RODOLFO, TURENO, COMETA, DASHER, DANCER, PRANCER;
+//Operadores aritmeticos unarios
+terminal QUIEN, GRINCH;
+//Operadores relacionales
+terminal SNOWBALL, BUSHY, PEPPER, SUGARPLUM, SHINNY, WUNORSE;
+//Operadores logicos
+terminal MELHOR, GASPAR, BALTAZAR;
+//Identificador
+terminal PERSONA;
+//Tipos
+terminal FATHER_CHRISTMAS, SANTA_CLAUS, PAPA_NOEL, SAN_NICOLAS, SANTA;
+//Literales
+terminal l_FFATHER_CHRISTMAS, l_TFATHER_CHRISTMAS, l_SANTA_CLAUS, l_PAPA_NOEL, l_SAN_NICOLAS, l_SANTA;
+//Prentesis
+terminal ABRECUENTO, CIERRACUENTO, ABREEMPAQUE, CIERRAEMPAQUE, ABREREGALO, CIERRAREGALO;
+//Estructuras de control
+terminal ELFO, HADA, DUENDE, ENVUELVE, HACE, REVISA, ENVIA, CORTA; 
+//Print, Read
+terminal NARRA, ESCUCHA;
+//Final de expresión
+terminal FINREGALO;
 
 
 //Simbolos no terminales

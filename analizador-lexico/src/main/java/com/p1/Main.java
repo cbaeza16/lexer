@@ -13,7 +13,8 @@ public class Main {
     public static void main(String[] args) {
         try {
             String userPath = System.getProperty("user.dir");
-            String ruta = userPath+"\\src\\main\\text.txt";
+            String fileName = "text.txt";
+            String ruta = userPath+"\\src\\main\\"+fileName;
             Reader reader = new BufferedReader(new FileReader(ruta));
             reader.read();
             Lexer lex = new Lexer(reader);
