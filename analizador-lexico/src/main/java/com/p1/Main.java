@@ -6,7 +6,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Reader;
-
 import java_cup.runtime.Symbol;
 
 
@@ -28,7 +27,8 @@ public class Main {
             while(bandera){
                 token = lex.next_token();
                 if(token.sym != 0){
-                    result+= "Token: "+ String.valueOf(token.sym) +", Lexema: "+(token.value==null?lex.yytext():token.value.toString())+"\n";
+                    result+= "Token: "+ String.valueOf(token.sym) +", Lexema: "+(token.value==null?lex.yytext():token.value.toString())+
+                    ", Linea: "+ String.valueOf(lex.getLine())+", Columna: "+ String.valueOf(lex.getCol())+ "\n";
                 }else{
                     result += "Cantidad de lexemas encontrados: "+ String.valueOf(i);
                     bandera = false;

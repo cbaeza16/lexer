@@ -1,10 +1,13 @@
+//-------Codigo del usuario---------
+//se copia al inico de la clase generada
 package com.p1;
 
 import java_cup.runtime.*;
 
-//Reglas
+
 %%
 
+//--------Opciones y declaraciones-------
 //nombre de clase generada
 %class Lexer
 %public
@@ -13,7 +16,7 @@ import java_cup.runtime.*;
 %line
 %column
 
-
+//Codigo que se copia directamente en la clase generada
 %{
   StringBuffer string = new StringBuffer();
 
@@ -23,6 +26,15 @@ import java_cup.runtime.*;
   private Symbol symbol(int type, Object value) {
     return new Symbol(type, yyline, yycolumn, value);
   }
+
+//genera el codigo para poder presentar el numero de linea y columna
+  public int getLine(){
+    return yyline;
+  }
+  public int getCol(){
+    return yycolumn;
+  }
+
 %}
 
 //Lo que pasa al final del archivo
@@ -31,31 +43,39 @@ import java_cup.runtime.*;
 //%eofval}
 
 
+//-------Definicion de literales------
+
+//Define el final de linea, los caracteres de ingreso y el "espacio banco"
 LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
 WhiteSpace     = {LineTerminator} | [ \t\f]
 
+//Definición de comentario
 Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
 
 TraditionalComment   = "/_" [^_] ~"_/" | "/_" "_"+ "/"
 
-// Comment can be the last line of the file, without line terminator.
+
 EndOfLineComment     = "@" {InputCharacter}* {LineTerminator}?
 DocumentationComment = "/**" {CommentContent} "*"+ "/"
 CommentContent       = ( [^*] | \*+ [^/*] )*
 
+//Definicion de identificador
 Identifier = [:jletter:] [:jletterdigit:]*
 
 digit =[0-9]
 noCeroDigit = [1-9]
 IntegerLiteral = (0|-?{noCeroDigit}{digit}*)
-FloatLiteral = (0.0|-?{noCeroDigit}{digit}*.{digit}*)
+FloatLiteral = (0.0|-?{noCeroDigit}{digit}*.{digit}*|-?0.0*{noCeroDigit})
 letter = [a-zA-Z]
 whitespace = [ \t\n]
 
 
 %state STRING
 %%
+
+//---------Definicon y Asignacion de palabras reservadas y simbolos---------
+//Definir las palabras y simbolos que va a reconocer el lexer
 
 /* keywords */
 <YYINITIAL> "abstract"           { return symbol(sym.PERE_NOEL); }
@@ -82,17 +102,17 @@ whitespace = [ \t\n]
 <YYINITIAL> "read"              { return symbol(sym.ESCUCHA); }
 
 <YYINITIAL> {
-  /* identifiers */ 
+  /* identificadores */ 
   {Identifier}                   { return symbol(sym.PERSONA); }
      
-  /* literals */
+  /* literales */
   {IntegerLiteral}            { return symbol(sym.l_SANTA_CLAUS); }
   {FloatLiteral}            { return symbol(sym.l_PAPA_NOEL); }
   {letter}            { return symbol(sym.l_SANTA); }
 
   \"                             { string.setLength(0); yybegin(STRING); }
 
-  /* operators */
+  /* operadores */
   "<="                            { return symbol(sym.ENTREGA); }
   "+"                            { return symbol(sym.RODOLFO); }
   "++"                           { return symbol(sym.QUIEN);}
@@ -125,13 +145,13 @@ whitespace = [ \t\n]
   "{"                           { return symbol(sym.ABREREGALO); }
   "}"                           { return symbol(sym.CIERRAREGALO); }
 
-  /* final de exoresion */
+  /* final de expresion */
   "|"                           { return symbol(sym.FINREGALO); }
 
-  /* comments */
+  /* comentario */
   {Comment}                      { /* ignore */ }
      
-  /* whitespace */
+  /* espaico en blanco */
   {WhiteSpace}                   { /* ignore */ }
 }
 
@@ -149,7 +169,7 @@ whitespace = [ \t\n]
   \\                             { string.append('\\'); }
   }
 
-// En caso de error
+// En caso de encontrar un error 
 [^] {
     System.err.println("Error léxico en la línea " + yyline + " Columna: "+ yycolumn +": Cadena ilegal <" + yytext() + ">");
     yybegin(YYINITIAL); // Reinicia el análisis para continuar con la siguiente línea

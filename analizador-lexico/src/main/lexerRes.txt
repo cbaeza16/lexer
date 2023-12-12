@@ -1,10 +1,10 @@
-Token: 20, Lexema: public
-Token: 26, Lexema: abstract
-Token: 20, Lexema: hola
-Token: 31, Lexema: hola
-Token: 20, Lexema: _1
-Token: 20, Lexema: _m1
-Token: 30, Lexema: 1.23
-Token: 30, Lexema: 45 
-Token: 20, Lexema: hola
+Token: 20, Lexema: public, Linea: 0, Columna: 0
+Token: 26, Lexema: abstract, Linea: 0, Columna: 7
+Token: 20, Lexema: hola, Linea: 0, Columna: 16
+Token: 31, Lexema: hola, Linea: 0, Columna: 26
+Token: 20, Lexema: _1, Linea: 0, Columna: 28
+Token: 20, Lexema: _m1, Linea: 0, Columna: 31
+Token: 30, Lexema: 1.23, Linea: 0, Columna: 36
+Token: 30, Lexema: 45 , Linea: 1, Columna: 3
+Token: 20, Lexema: hola, Linea: 1, Columna: 6
 Cantidad de lexemas encontrados: 9
