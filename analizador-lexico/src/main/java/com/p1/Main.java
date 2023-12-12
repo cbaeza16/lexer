@@ -29,8 +29,11 @@ public class Main {
                 if(token.sym != 0){
                     result+= "Token: "+ String.valueOf(token.sym) +", Lexema: "+(token.value==null?lex.yytext():token.value.toString())+
                     ", Linea: "+ String.valueOf(lex.getLine())+", Columna: "+ String.valueOf(lex.getCol())+ "\n";
+                    System.out.println("Token: "+ String.valueOf(token.sym) +", Lexema: "+(token.value==null?lex.yytext():token.value.toString())+
+                    ", Linea: "+ String.valueOf(lex.getLine())+", Columna: "+ String.valueOf(lex.getCol()));
                 }else{
                     result += "Cantidad de lexemas encontrados: "+ String.valueOf(i);
+                    System.out.println( "Cantidad de lexemas encontrados: "+ String.valueOf(i));
                     bandera = false;
                 }
                 i ++;
@@ -39,8 +42,6 @@ public class Main {
             BufferedWriter writer = new BufferedWriter(new FileWriter(userPath+"\\src\\main\\lexerRes.txt", false));
             writer.write(result);
             writer.close();
-
-            System.out.println(result);
 
         } catch (Exception e) {
             e.printStackTrace();
