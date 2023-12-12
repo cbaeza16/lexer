@@ -151,6 +151,6 @@ whitespace = [ \t\n]
 
 // En caso de error
 [^] {
-    System.err.println("Error léxico en la línea " + yyline + ": Cadena ilegal <" + yytext() + ">");
+    System.err.println("Error léxico en la línea " + yyline + " Columna: "+ yycolumn +": Cadena ilegal <" + yytext() + ">");
     yybegin(YYINITIAL); // Reinicia el análisis para continuar con la siguiente línea
 }
