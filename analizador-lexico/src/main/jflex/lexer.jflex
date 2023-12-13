@@ -159,7 +159,7 @@ whitespace = [ \t\n]
 <STRING> {
   \"                             { yybegin(YYINITIAL); 
                                     return symbol(sym.l_SAN_NICOLAS, 
-                                    string.toString()); }
+                                    "\"" + string.toString() + "\""); }
   [^\n\r\"\\]+                   { string.append( yytext() ); }
   \\t                            { string.append('\t'); }
   \\n                            { string.append('\n'); }

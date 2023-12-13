@@ -1,3 +1,5 @@
  string test "Hola, esto es una prueba de funcionamiento"|
-  .
- int funcion(int hola, int adios){}|
+  . 
+ int funcion(int hola, int adios){}| hola 
+
+
