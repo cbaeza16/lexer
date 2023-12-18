@@ -51,13 +51,12 @@ InputCharacter = [^\r\n]
 WhiteSpace     = {LineTerminator} | [ \t\f]
 
 //Definición de comentario
-Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
+Comment = {TraditionalComment} | {EndOfLineComment}
 
 TraditionalComment   = "/_" [^_] ~"_/" | "/_" "_"+ "/"
 
 
 EndOfLineComment     = "@" {InputCharacter}* {LineTerminator}?
-DocumentationComment = "/**" {CommentContent} "*"+ "/"
 CommentContent       = ( [^*] | \*+ [^/*] )*
 
 //Definicion de identificador
@@ -66,8 +65,8 @@ Identifier = [:jletter:] [:jletterdigit:]*
 digit =[0-9]
 noCeroDigit = [1-9]
 IntegerLiteral = (0|-?{noCeroDigit}{digit}*)
-FloatLiteral = (0.0|-?{noCeroDigit}{digit}*.{digit}*|-?0.0*{noCeroDigit})
-letter = [a-zA-Z]
+FloatLiteral = (0.0|-?{noCeroDigit}{digit}*.{digit}+|-?0.0*{noCeroDigit})
+letter = \'[a-zA-Z]\'
 whitespace = [ \t\n]
 
 
@@ -112,6 +111,8 @@ whitespace = [ \t\n]
 
   \"                             { string.setLength(0); yybegin(STRING); }
 
+  
+
   /* operadores */
   "<="                            { return symbol(sym.ENTREGA); }
   "+"                            { return symbol(sym.RODOLFO); }
@@ -155,6 +156,7 @@ whitespace = [ \t\n]
   {WhiteSpace}                   { /* ignore */ }
 }
 
+
 //Cuando lo reconoce como String
 <STRING> {
   \"                             { yybegin(YYINITIAL); 
@@ -168,6 +170,7 @@ whitespace = [ \t\n]
   \\\"                           { string.append('\"'); }
   \\                             { string.append('\\'); }
   }
+
 
 // En caso de encontrar un error 
 [^] {
