@@ -1,18 +1,5 @@
-Token: 24, Lexema: string, Linea: 0, Columna: 0
-Token: 20, Lexema: test, Linea: 0, Columna: 7
-Token: 31, Lexema: "Hola, esto es una prueba de funcionamiento", Linea: 0, Columna: 55
-Token: 51, Lexema: |, Linea: 0, Columna: 56
-Token: 22, Lexema: int, Linea: 2, Columna: 1
-Token: 20, Lexema: funcion, Linea: 2, Columna: 5
-Token: 33, Lexema: (, Linea: 2, Columna: 12
-Token: 22, Lexema: int, Linea: 2, Columna: 13
-Token: 20, Lexema: hola, Linea: 2, Columna: 17
-Token: 48, Lexema: ,, Linea: 2, Columna: 21
-Token: 22, Lexema: int, Linea: 2, Columna: 23
-Token: 20, Lexema: adios, Linea: 2, Columna: 27
-Token: 34, Lexema: ), Linea: 2, Columna: 32
-Token: 37, Lexema: {, Linea: 2, Columna: 33
-Token: 38, Lexema: }, Linea: 2, Columna: 34
-Token: 51, Lexema: |, Linea: 2, Columna: 35
-Token: 20, Lexema: hola, Linea: 2, Columna: 37
-Cantidad de lexemas encontrados: 17
+Token: 21, Lexema: boolean, Linea: 0, Columna: 0
+Token: 20, Lexema: hola, Linea: 0, Columna: 8
+Token: 3, Lexema: +, Linea: 0, Columna: 13
+Token: 28, Lexema: 4, Linea: 0, Columna: 15
+Cantidad de lexemas encontrados: 4

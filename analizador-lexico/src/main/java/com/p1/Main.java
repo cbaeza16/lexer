@@ -1,7 +1,6 @@
 package com.p1;
 
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -11,18 +10,27 @@ import java_cup.runtime.Symbol;
 
 public class Main {
 
-    public static void main(String[] args) {
-        try {
-            String userPath = System.getProperty("user.dir");
-            String fileName = "text.txt";
-            String ruta = userPath+"\\src\\main\\"+fileName;
-            Reader reader = new BufferedReader(new FileReader(ruta));
+    public static void initParser(String ruta) throws Exception{
+
+        Reader readerx = new FileReader(ruta);
+
+        Lexer lexer = new Lexer(readerx);
+        parser myParser = new parser (lexer);
+        System.out.println("aqui");
+        myParser.parse();
+        System.out.println("aqui");
+    }
+
+    public static void initLexer(String ruta, String rutaSalida) throws Exception{
+
+        Reader reader = new FileReader(ruta);
             reader.read();
             Lexer lex = new Lexer(reader);
             int i = 0;
             Symbol token;
             String result = "";
             boolean bandera = true;
+
 
             while(bandera){
                 token = lex.next_token();
@@ -39,9 +47,23 @@ public class Main {
                 i ++;
             }
             
-            BufferedWriter writer = new BufferedWriter(new FileWriter(userPath+"\\src\\main\\lexerRes.txt", false));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(rutaSalida, false));
             writer.write(result);
             writer.close();
+    }
+
+
+    public static void main(String[] args) {
+        try {
+            String userPath = System.getProperty("user.dir");
+            String fileName = "text.txt";
+            String outputFile = "lexerRes.txt";
+            String ruta = userPath+"\\src\\main\\"+fileName;
+            String rutaSalida = userPath+"\\src\\main\\"+outputFile;
+            
+            initLexer(ruta, rutaSalida);
+            initParser(ruta);
+           
 
         } catch (Exception e) {
             e.printStackTrace();

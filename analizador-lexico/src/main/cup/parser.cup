@@ -41,7 +41,7 @@ terminal MELCHOR, GASPAR, BALTAZAR;
 //Identificador
 terminal PERSONA;
 //Tipos
-terminal FATHER_CHRISTMAS, SANTA_CLAUS, PAPA_NOEL, SAN_NICOLAS, SANTA, PERE_NOEL;
+terminal FATHER_CHRISTMAS, SANTA_CLAUS, PAPA_NOEL, SAN_NICOLAS, SANTA;
 //Literales
 terminal l_FFATHER_CHRISTMAS, l_TFATHER_CHRISTMAS, l_SANTA_CLAUS, l_PAPA_NOEL, l_SAN_NICOLAS, l_SANTA;
 //Prentesis
@@ -54,17 +54,19 @@ terminal NARRA, ESCUCHA;
 terminal FINREGALO;
 
 
-//Simbolos no terminales
-non terminal miLenguaje;
+//-----Simbolos no terminales navideños------
+non terminal pnochebuena ,navidad, funcionNavidena, pfuncionNavidenaAux ;
 
-start with miLenguaje;
 
-miLenguaje ::= //{:
-        //    hola();
-        //:}
-        IDENTIFIER
-        //{:
-        //    adios();
-        //:}
-        ;
+start with pnochebuena;
+
+navidad ::= l_SANTA_CLAUS | l_PAPA_NOEL ;
+
+funcionNavidena ::= FATHER_CHRISTMAS PERSONA RODOLFO navidad ;
+
+pfuncionNavidenaAux ::= funcionNavidena
+                    | pfuncionNavidenaAux funcionNavidena ;
+
+
+pnochebuena ::= pfuncionNavidenaAux ;
 

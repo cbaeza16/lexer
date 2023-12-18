@@ -77,7 +77,6 @@ whitespace = [ \t\n]
 //Definir las palabras y simbolos que va a reconocer el lexer
 
 /* keywords */
-<YYINITIAL> "abstract"           { return symbol(sym.PERE_NOEL); }
 
 <YYINITIAL> "boolean"            { return symbol(sym.FATHER_CHRISTMAS); }
 <YYINITIAL> "int"              { return symbol(sym.SANTA_CLAUS); }

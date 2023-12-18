@@ -1,6 +1,8 @@
- string test "Hola, esto es una prueba de funcionamiento"|
-  . 
- int funcion(int hola, int adios){}| hola 
+ boolean hola + 4
+ 
+ @string test "Hola, esto es una prueba de funcionamiento"|
+
+ @int funcion(int hola, int adios){}| hola 
 
  @ hola kksd k3 4.5 .
 
