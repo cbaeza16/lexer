@@ -55,7 +55,7 @@ terminal FINREGALO;
 
 
 //-----Simbolos no terminales navideños------
-/**non terminal pnochebuena ,navidad, funcionNavidena, pfuncionNavidenaAux ;
+non terminal pnochebuena ,navidad, funcionNavidena, pfuncionNavidenaAux ;
 
 
 start with pnochebuena;
@@ -68,8 +68,9 @@ pfuncionNavidenaAux ::= funcionNavidena
                     | pfuncionNavidenaAux funcionNavidena ;
 
 
-pnochebuena ::= pfuncionNavidenaAux ; */
+pnochebuena ::= pfuncionNavidenaAux ;
 
+/**
 non terminal navidad, adorno, regalo, regaloprinI, regaloprinF, ornamentos;
 
 start with navidad;
@@ -94,4 +95,4 @@ ornamentos::=
     COMETA|
     DASHER|
     DANCER|
-    PRANCER;
+    PRANCER; */
