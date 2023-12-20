@@ -55,7 +55,7 @@ terminal FINREGALO;
 
 
 //-----Simbolos no terminales navideños------
-non terminal pnochebuena ,navidad, funcionNavidena, pfuncionNavidenaAux ;
+/**non terminal pnochebuena ,navidad, funcionNavidena, pfuncionNavidenaAux ;
 
 
 start with pnochebuena;
@@ -68,5 +68,30 @@ pfuncionNavidenaAux ::= funcionNavidena
                     | pfuncionNavidenaAux funcionNavidena ;
 
 
-pnochebuena ::= pfuncionNavidenaAux ;
+pnochebuena ::= pfuncionNavidenaAux ; */
 
+non terminal navidad, adorno, regalo, regaloprinI, regaloprinF, ornamentos;
+
+start with navidad;
+
+navidad ::= adorno FINREGALO;
+
+adorno ::= regalo;
+
+regalo :: = regaloprinF | regaloprinI;
+
+//Int
+regaloprinI ::= SANTA_CLAUS PERSONA| l_SANTA_CLAUS
+    | regaloprinI ornamentos (SANTA_CLAUS PERSONA| l_SANTA_CLAUS);
+//Float
+regaloprinF ::= (PAPA_NOEL PERSONA | l_PAPA_NOEL) 
+    | regaloprinF ornamentos (PAPA_NOEL PERSONA | l_PAPA_NOEL);
+
+
+ornamentos::=
+    RODOLFO|
+    TURENO|
+    COMETA|
+    DASHER|
+    DANCER|
+    PRANCER;
