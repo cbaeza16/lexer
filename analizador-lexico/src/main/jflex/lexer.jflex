@@ -87,6 +87,10 @@ whitespace = [ \t\n]
 <YYINITIAL> "true"              { return symbol(sym.l_TFATHER_CHRISTMAS); }
 <YYINITIAL> "false"              { return symbol(sym.l_FFATHER_CHRISTMAS); }
 
+<YYINITIAL> "function"              { return symbol(sym.FUNCTION); }
+<YYINITIAL> "local"              { return symbol(sym.LOCAL); }
+<YYINITIAL> "main"              { return symbol(sym.MAIN); }
+
 <YYINITIAL> "if"              { return symbol(sym.ELFO); }
 <YYINITIAL> "elif"              { return symbol(sym.HADA); }
 <YYINITIAL> "else"              { return symbol(sym.DUENDE); }
@@ -101,11 +105,11 @@ whitespace = [ \t\n]
 
 <YYINITIAL> {
   /* identificadores */ 
-  {Identifier}                   { return symbol(sym.PERSONA); }
+  {Identifier}                   { return symbol(sym.PERSONA, yytext()); }
      
   /* literales */
-  {IntegerLiteral}            { return symbol(sym.l_SANTA_CLAUS); }
-  {FloatLiteral}            { return symbol(sym.l_PAPA_NOEL); }
+  {IntegerLiteral}            { return symbol(sym.l_SANTA_CLAUS, yytext()); }
+  {FloatLiteral}            { return symbol(sym.l_PAPA_NOEL, yytext()); }
   {letter}            { return symbol(sym.l_SANTA); }
 
   \"                             { string.setLength(0); yybegin(STRING); }

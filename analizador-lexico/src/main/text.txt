@@ -1,4 +1,76 @@
- boolean hola + 4
+ @Pruebas funciones
+function int hola () {
+    break
+}
+
+function int holaa (boolean var1) {
+    @Pruebas Arreglos
+    trineo1[2]
+    trineo2 [2] <= [2,3]
+    char trineo3 [6]
+
+    @Pruebas variables
+    local int var5 |
+    local string var6 <= "hola"|
+    local int trineo1[2]|
+    
+    break
+    hola(var1, var2)
+
+    @Prueba print y read
+    read (var7) |
+    print ("hola") |
+}
+
+function int holaa (int var2, boolean var3, int var4) {
+    return var2
+
+    @Prueba condicionales
+
+    if (){
+        hola(var1, var2)
+    } else {
+        hola(var1, var2)
+    }
+
+    if (){
+        hola(var1, var2)
+    }elif(){
+        hola(var1, var2)
+    }elif(){
+        hola(var1, var2)
+    } 
+    else {
+        hola(var1, var2)
+    }
+
+    do {hola(var1, var2)} until () |
+    do {hola(var1, var2)} until () |
+
+    for (local int i <= 0 | local int i <= 0 |) {
+        hola(var1, var2) }|
+
+    @Pruebas operaciones unicas
+    ++ hola
+    -- 5
+    - 4.03
+    
+}
+
+
+function main() {
+    if (){
+        hola(var1, var2)
+    } else {
+        hola(var1, var2)
+    }
+}
+
+
+
+
+
+@ boolean hola + 4
  
  @string test "Hola, esto es una prueba de funcionamiento"|
 

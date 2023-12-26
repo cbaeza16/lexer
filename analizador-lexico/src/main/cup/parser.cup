@@ -44,8 +44,10 @@ terminal PERSONA;
 terminal FATHER_CHRISTMAS, SANTA_CLAUS, PAPA_NOEL, SAN_NICOLAS, SANTA;
 //Literales
 terminal l_FFATHER_CHRISTMAS, l_TFATHER_CHRISTMAS, l_SANTA_CLAUS, l_PAPA_NOEL, l_SAN_NICOLAS, l_SANTA;
-//Prentesis
+//Parentesis
 terminal ABRECUENTO, CIERRACUENTO, ABREEMPAQUE, CIERRAEMPAQUE, ABREREGALO, CIERRAREGALO;
+//Palabras reservadas
+terminal MAIN, LOCAL, FUNCTION;
 //Estructuras de control
 terminal ELFO, HADA, DUENDE, ENVUELVE, HACE, REVISA, ENVIA, CORTA, ENTREGA, BASTON; 
 //Print, Read
@@ -55,39 +57,130 @@ terminal FINREGALO;
 
 
 //-----Simbolos no terminales navideños------
-non terminal pnochebuena ,navidad, funcionNavidena, pfuncionNavidenaAux ;
-
-
-start with pnochebuena;
-
-navidad ::= l_SANTA_CLAUS | l_PAPA_NOEL ;
-
-funcionNavidena ::= FATHER_CHRISTMAS PERSONA RODOLFO navidad ;
-
-pfuncionNavidenaAux ::= funcionNavidena
-                    | pfuncionNavidenaAux funcionNavidena ;
-
-
-pnochebuena ::= pfuncionNavidenaAux ;
-
-/**
-non terminal navidad, adorno, regalo, regaloprinI, regaloprinF, ornamentos;
+non terminal tsantaclaus, tlsantaclaus;
+non terminal navidad, mainNavidad, bolsanavidena, bolsanavidenaAux, listaDeRegalos, listaDeRegalosAux, villancicos, adorno,
+listaDeTamalesAux, listaDeTamales, llamadaASanta, listaAmigos, acceso_trineo, llenar_trineo, trineo, infoTrineo, decorarGalleta,
+ponerLuces, if, elif, else, do_until, for, luces, leerCarta, escribirCarta, mensaje, ornamentosUnicos, decoracionesI, decoracionesF,
+decoracion, decoracionIAux, decoracionI, decoracionF, ornamentos;
 
 start with navidad;
 
-navidad ::= adorno FINREGALO;
+//Programa Simbolo inicial = navidad (puede correr funcion principal)
+navidad ::= mainNavidad|
+        bolsanavidena mainNavidad;
 
-adorno ::= regalo;
+//Funcion Main
+mainNavidad ::= FUNCTION MAIN ABRECUENTO CIERRACUENTO ABREREGALO villancicos CIERRAREGALO ;
 
-regalo :: = regaloprinF | regaloprinI;
+//Creacion de funciones con palabra resevada "function" tipo identificador (parametros) {cuerpo}
 
-//Int
-regaloprinI ::= SANTA_CLAUS PERSONA| l_SANTA_CLAUS
-    | regaloprinI ornamentos (SANTA_CLAUS PERSONA| l_SANTA_CLAUS);
-//Float
-regaloprinF ::= (PAPA_NOEL PERSONA | l_PAPA_NOEL) 
-    | regaloprinF ornamentos (PAPA_NOEL PERSONA | l_PAPA_NOEL);
+bolsanavidenaAux ::= FUNCTION tsantaclaus PERSONA ABRECUENTO CIERRACUENTO ABREREGALO villancicos CIERRAREGALO
+    | FUNCTION tsantaclaus PERSONA ABRECUENTO listaDeRegalos CIERRACUENTO ABREREGALO villancicos CIERRAREGALO  ;
 
+//Creacion de una o varias funciones
+bolsanavidena ::= bolsanavidenaAux | bolsanavidena bolsanavidenaAux ;
+
+//Parametros (tipo identificador)
+listaDeRegalosAux ::= tsantaclaus PERSONA ;
+listaDeRegalos ::= listaDeRegalosAux
+    | listaDeRegalos BASTON listaDeRegalosAux ;
+
+//Sentencia
+adorno ::= llamadaASanta | infoTrineo | decorarGalleta | leerCarta | escribirCarta | luces | decoracionI | decoracionesF
+    |CORTA | ENVIA PERSONA ;
+
+//Cuerpo (cuerpo con sentencia -sentencias o vacio)
+villancicos ::= adorno| villancicos adorno ;
+
+//Llamada de Funcion
+llamadaASanta ::= PERSONA ABRECUENTO listaDeTamales CIERRACUENTO ;
+
+//Argumentos (tipo identificador)
+listaDeTamalesAux ::= PERSONA | tlsantaclaus ;
+listaDeTamales ::= listaDeTamalesAux
+    |listaDeTamales BASTON listaDeTamalesAux ;
+
+//Lista de literales
+listaAmigos ::= tlsantaclaus|tlsantaclaus BASTON listaAmigos ;
+
+//Acceso al arreglo
+acceso_trineo ::= PERSONA ABREEMPAQUE l_SANTA_CLAUS CIERRAEMPAQUE ;
+
+//Asignar al arreglo
+llenar_trineo ::= acceso_trineo ENTREGA ABREEMPAQUE listaAmigos CIERRAEMPAQUE ;
+
+//Identificar arreglo
+
+trineo ::= tsantaclaus PERSONA ABREEMPAQUE l_SANTA_CLAUS CIERRAEMPAQUE ;
+
+infoTrineo ::= trineo | llenar_trineo | acceso_trineo | listaAmigos;
+
+//Asignar variable o arreglo
+decorarGalleta ::= LOCAL listaDeRegalosAux FINREGALO
+                |LOCAL listaDeRegalosAux ENTREGA tlsantaclaus FINREGALO
+                |LOCAL trineo FINREGALO ;
+
+//Condicionales
+ponerLuces ::= elif|else ;
+//If
+if ::= ELFO ABRECUENTO CIERRACUENTO ABREREGALO villancicos CIERRAREGALO ponerLuces ;
+
+//Elif
+elif ::= HADA ABRECUENTO CIERRACUENTO ABREREGALO villancicos CIERRAREGALO ponerLuces ;
+
+//Else
+else ::= DUENDE ABREREGALO villancicos CIERRAREGALO ;
+
+//Do Until
+do_until ::= HACE ABREREGALO villancicos CIERRAREGALO REVISA ABRECUENTO CIERRACUENTO FINREGALO ;
+
+//For
+for ::= ENVUELVE ABRECUENTO decorarGalleta decorarGalleta CIERRACUENTO ABREREGALO villancicos CIERRAREGALO FINREGALO ;
+
+//Lectura
+leerCarta ::= ESCUCHA ABRECUENTO PERSONA CIERRACUENTO FINREGALO ;
+
+//Escritura
+escribirCarta ::= NARRA ABRECUENTO mensaje CIERRACUENTO FINREGALO ;
+
+//Unarias
+decoracionesI ::= decoracionI|decoracion ;
+decoracionesF ::= decoracionF|decoracion ;
+decoracion ::= ornamentosUnicos PERSONA ;
+decoracionIAux ::= ornamentosUnicos|TURENO ;
+decoracionI ::= decoracionIAux l_SANTA_CLAUS ;
+decoracionF::= TURENO l_PAPA_NOEL ;
+
+
+luces ::= 
+    if|
+    do_until|
+    for;
+
+tsantaclaus ::= 
+    FATHER_CHRISTMAS|
+    SANTA_CLAUS|
+    PAPA_NOEL|
+    SAN_NICOLAS|
+    SANTA;
+
+tlsantaclaus ::=
+    l_SANTA_CLAUS|
+    l_PAPA_NOEL|
+    l_SANTA|
+    l_TFATHER_CHRISTMAS|
+    l_FFATHER_CHRISTMAS|
+    l_SAN_NICOLAS;
+
+mensaje ::= 
+    l_SANTA_CLAUS|
+    l_PAPA_NOEL|
+    l_SAN_NICOLAS|
+    PERSONA;
+
+ornamentosUnicos ::=
+    QUIEN|
+    GRINCH;
 
 ornamentos::=
     RODOLFO|
@@ -95,4 +188,4 @@ ornamentos::=
     COMETA|
     DASHER|
     DANCER|
-    PRANCER; */
+    PRANCER;

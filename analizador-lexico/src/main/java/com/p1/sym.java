@@ -8,14 +8,15 @@ package com.p1;
 /** CUP generated interface containing symbol constants. */
 public interface sym {
   /* terminals */
+  public static final int FUNCTION = 40;
   public static final int l_SANTA = 31;
-  public static final int FINREGALO = 50;
-  public static final int HADA = 39;
+  public static final int FINREGALO = 53;
+  public static final int HADA = 42;
   public static final int PERSONA = 20;
   public static final int CIERRACUENTO = 33;
   public static final int DANCER = 7;
-  public static final int DUENDE = 40;
-  public static final int ENTREGA = 46;
+  public static final int DUENDE = 43;
+  public static final int ENTREGA = 49;
   public static final int CIERRAREGALO = 37;
   public static final int ABREEMPAQUE = 34;
   public static final int RODOLFO = 3;
@@ -24,11 +25,12 @@ public interface sym {
   public static final int l_SANTA_CLAUS = 28;
   public static final int l_PAPA_NOEL = 29;
   public static final int l_SAN_NICOLAS = 30;
-  public static final int NARRA = 48;
+  public static final int NARRA = 51;
   public static final int l_FFATHER_CHRISTMAS = 26;
-  public static final int HACE = 42;
+  public static final int HACE = 45;
+  public static final int MAIN = 38;
   public static final int l_TFATHER_CHRISTMAS = 27;
-  public static final int ENVUELVE = 41;
+  public static final int ENVUELVE = 44;
   public static final int COMETA = 5;
   public static final int SANTA_CLAUS = 22;
   public static final int PAPA_NOEL = 23;
@@ -36,28 +38,29 @@ public interface sym {
   public static final int SAN_NICOLAS = 24;
   public static final int GRINCH = 10;
   public static final int EOF = 0;
-  public static final int CORTA = 45;
+  public static final int CORTA = 48;
   public static final int MELCHOR = 17;
-  public static final int REVISA = 43;
+  public static final int REVISA = 46;
   public static final int error = 1;
   public static final int GASPAR = 18;
   public static final int ABRECUENTO = 32;
   public static final int SNOWBALL = 11;
   public static final int PEPPER = 13;
-  public static final int ESCUCHA = 49;
+  public static final int ESCUCHA = 52;
   public static final int ABREREGALO = 36;
   public static final int PRANCER = 8;
   public static final int DASHER = 6;
-  public static final int ENVIA = 44;
+  public static final int ENVIA = 47;
   public static final int SHINNY = 15;
   public static final int BALTAZAR = 19;
   public static final int BUSHY = 12;
   public static final int SUGARPLUM = 14;
   public static final int SANTA = 25;
-  public static final int ELFO = 38;
+  public static final int ELFO = 41;
+  public static final int LOCAL = 39;
   public static final int WUNORSE = 16;
   public static final int QUIEN = 9;
-  public static final int BASTON = 47;
+  public static final int BASTON = 50;
   public static final int IDENTIFIER = 2;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -98,6 +101,9 @@ public interface sym {
   "CIERRAEMPAQUE",
   "ABREREGALO",
   "CIERRAREGALO",
+  "MAIN",
+  "LOCAL",
+  "FUNCTION",
   "ELFO",
   "HADA",
   "DUENDE",
