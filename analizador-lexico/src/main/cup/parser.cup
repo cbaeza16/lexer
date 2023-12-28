@@ -61,7 +61,7 @@ non terminal tsantaclaus, tlsantaclaus;
 non terminal navidad, mainNavidad, bolsanavidena, bolsanavidenaAux, listaDeRegalos, listaDeRegalosAux, villancicos, adorno,
 listaDeTamalesAux, listaDeTamales, llamadaASanta, listaAmigos, acceso_trineo, llenar_trineo, trineo, infoTrineo, decorarGalleta,
 ponerLuces, if, elif, else, do_until, for, luces, leerCarta, escribirCarta, mensaje, ornamentosUnicos, decoracionesI, decoracionesF,
-decoracion, decoracionIAux, decoracionI, decoracionF, ornamentos;
+decoracion, decoracionIAux, decoracionI, decoracionF, ornamentos, CindyLuWho, whoVille, DonnaWho;
 
 start with navidad;
 
@@ -87,7 +87,7 @@ listaDeRegalos ::= listaDeRegalosAux
 
 //Sentencia
 adorno ::= llamadaASanta | infoTrineo | decorarGalleta | leerCarta | escribirCarta | luces | decoracionI | decoracionesF
-    |CORTA | ENVIA PERSONA ;
+    |CORTA | ENVIA PERSONA | whoVille;
 
 //Cuerpo (cuerpo con sentencia -sentencias o vacio)
 villancicos ::= adorno| villancicos adorno ;
@@ -144,14 +144,21 @@ leerCarta ::= ESCUCHA ABRECUENTO PERSONA CIERRACUENTO FINREGALO ;
 escribirCarta ::= NARRA ABRECUENTO mensaje CIERRACUENTO FINREGALO ;
 
 //Unarias
-decoracionesI ::= decoracionI|decoracion ;
-decoracionesF ::= decoracionF|decoracion ;
+decoracionesI ::= decoracionI | decoracion ;
+decoracionesF ::= decoracionF | decoracion ;
 decoracion ::= ornamentosUnicos PERSONA ;
-decoracionIAux ::= ornamentosUnicos|TURENO ;
+decoracionIAux ::= ornamentosUnicos | TURENO ;
 decoracionI ::= decoracionIAux l_SANTA_CLAUS ;
 decoracionF::= TURENO l_PAPA_NOEL ;
 
+//Operaciones aritmeticas
+CindyLuWho ::= tlsantaclaus | tlsantaclaus ornamentos CindyLuWho | tlsantaclaus ornamentos whoVille | whoVille ornamentos CindyLuWho |
+            PERSONA | PERSONA ornamentos CindyLuWho | PERSONA ornamentos whoVille ;
+            
+DonnaWho ::= ABRECUENTO CindyLuWho CIERRACUENTO;
 
+whoVille ::= DonnaWho | ABRECUENTO DonnaWho CIERRACUENTO;
+            
 luces ::= 
     if|
     do_until|
