@@ -61,7 +61,8 @@ non terminal tsantaclaus, tlsantaclaus;
 non terminal navidad, mainNavidad, bolsanavidena, bolsanavidenaAux, listaDeRegalos, listaDeRegalosAux, villancicos, adorno,
 listaDeTamalesAux, listaDeTamales, llamadaASanta, listaAmigos, acceso_trineo, llenar_trineo, trineo, infoTrineo, decorarGalleta,
 ponerLuces, if, elif, else, do_until, for, luces, leerCarta, escribirCarta, mensaje, ornamentosUnicos, decoracionesI, decoracionesF,
-decoracion, decoracionIAux, decoracionI, decoracionF, ornamentos, CindyLuWho, whoVille, DonnaWho;
+decoracion, decoracionIAux, decoracionI, decoracionF, ornamentos, CindyLuWho, whoVille, DonnaWho, SantaMate, workshop, mint, mintAux,
+candyCane, candyCaneAux, yellowSnow;
 
 start with navidad;
 
@@ -87,7 +88,7 @@ listaDeRegalos ::= listaDeRegalosAux
 
 //Sentencia
 adorno ::= llamadaASanta | infoTrineo | decorarGalleta | leerCarta | escribirCarta | luces | decoracionI | decoracionesF
-    |CORTA | ENVIA PERSONA | whoVille;
+    |CORTA | ENVIA PERSONA | whoVille | candyCane;
 
 //Cuerpo (cuerpo con sentencia -sentencias o vacio)
 villancicos ::= adorno| villancicos adorno ;
@@ -152,13 +153,18 @@ decoracionI ::= decoracionIAux l_SANTA_CLAUS ;
 decoracionF::= TURENO l_PAPA_NOEL ;
 
 //Operaciones aritmeticas
-CindyLuWho ::= tlsantaclaus | tlsantaclaus ornamentos CindyLuWho | tlsantaclaus ornamentos whoVille | whoVille ornamentos CindyLuWho |
-            PERSONA | PERSONA ornamentos CindyLuWho | PERSONA ornamentos whoVille ;
+CindyLuWho ::= SantaMate | SantaMate ornamentos CindyLuWho | SantaMate ornamentos whoVille | whoVille ornamentos CindyLuWho ;
             
 DonnaWho ::= ABRECUENTO CindyLuWho CIERRACUENTO;
 
 whoVille ::= DonnaWho | ABRECUENTO DonnaWho CIERRACUENTO;
             
+//Operaciones logicas
+mintAux::= SantaMate workshop SantaMate | SantaMate workshop mint | mint workshop SantaMate;
+mint::= ABRECUENTO mintAux CIERRACUENTO;
+candyCaneAux::= mint | mintAux | mint yellowSnow candyCaneAux | mintAux yellowSnow candyCaneAux ;
+candyCane ::= candyCaneAux | PERSONA yellowSnow candyCane; 
+
 luces ::= 
     if|
     do_until|
@@ -179,6 +185,10 @@ tlsantaclaus ::=
     l_FFATHER_CHRISTMAS|
     l_SAN_NICOLAS;
 
+SantaMate ::= l_SANTA_CLAUS|
+    l_PAPA_NOEL|
+    PERSONA;
+
 mensaje ::= 
     l_SANTA_CLAUS|
     l_PAPA_NOEL|
@@ -196,3 +206,15 @@ ornamentos::=
     DASHER|
     DANCER|
     PRANCER;
+
+workshop::=
+    SUGARPLUM|
+    SNOWBALL|
+    WUNORSE|
+    BUSHY|
+    PEPPER|
+    SHINNY;
+
+yellowSnow::= MELCHOR|
+    GASPAR|
+    BALTAZAR;
