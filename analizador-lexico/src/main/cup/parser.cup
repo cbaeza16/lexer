@@ -61,8 +61,8 @@ non terminal tsantaclaus, tlsantaclaus;
 non terminal navidad, mainNavidad, bolsanavidena, bolsanavidenaAux, listaDeRegalos, listaDeRegalosAux, villancicos, adorno,
 listaDeTamalesAux, listaDeTamales, llamadaASanta, listaAmigos, acceso_trineo, llenar_trineo, trineo, infoTrineo, decorarGalleta,
 ponerLuces, if, elif, else, do_until, for, luces, leerCarta, escribirCarta, mensaje, ornamentosUnicos, decoracionesI, decoracionesF,
-decoracion, decoracionIAux, decoracionI, decoracionF, ornamentos, CindyLuWho, whoVille, DonnaWho, SantaMate, workshop, mint, mintAux,
-candyCane, candyCaneAux, yellowSnow;
+decoracion, decoracionIAux, decoracionI, decoracionF, ornamentos, CindyLuWho, whoVille, DonnaWho, SantaMate, workshop, yellowSnow 
+, sugar, candy, candyCane, candyBox, gingerBread ;
 
 start with navidad;
 
@@ -88,7 +88,7 @@ listaDeRegalos ::= listaDeRegalosAux
 
 //Sentencia
 adorno ::= llamadaASanta | infoTrineo | decorarGalleta | leerCarta | escribirCarta | luces | decoracionI | decoracionesF
-    |CORTA | ENVIA PERSONA | whoVille | candyCane;
+    |CORTA | ENVIA PERSONA | whoVille | gingerBread;
 
 //Cuerpo (cuerpo con sentencia -sentencias o vacio)
 villancicos ::= adorno| villancicos adorno ;
@@ -160,10 +160,17 @@ DonnaWho ::= ABRECUENTO CindyLuWho CIERRACUENTO;
 whoVille ::= DonnaWho | ABRECUENTO DonnaWho CIERRACUENTO;
             
 //Operaciones logicas
+/*
 mintAux::= SantaMate workshop SantaMate | SantaMate workshop mint | mint workshop SantaMate;
 mint::= ABRECUENTO mintAux CIERRACUENTO;
 candyCaneAux::= mint | mintAux | mint yellowSnow candyCaneAux | mintAux yellowSnow candyCaneAux ;
-candyCane ::= candyCaneAux | PERSONA yellowSnow candyCane; 
+candyCane ::= candyCaneAux | PERSONA yellowSnow candyCane ; 
+*/
+sugar ::= SantaMate workshop SantaMate | whoVille workshop SantaMate | SantaMate workshop whoVille | whoVille workshop whoVille ;
+candy ::= sugar | BALTAZAR sugar | PERSONA | BALTAZAR PERSONA ;
+candyCane ::= candy | candy yellowSnow candyCane ;
+candyBox ::= ABREREGALO candyCane CIERRAREGALO | BALTAZAR ABREREGALO candyCane CIERRAREGALO ;
+gingerBread ::= candyBox | candyBox yellowSnow gingerBread ;
 
 luces ::= 
     if|
@@ -216,5 +223,4 @@ workshop::=
     SHINNY;
 
 yellowSnow::= MELCHOR|
-    GASPAR|
-    BALTAZAR;
+    GASPAR;
