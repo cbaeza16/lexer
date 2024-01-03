@@ -29,7 +29,7 @@ init with {: :};
 scan with {: return lex.next_token(); :};
 
 //-----Simbolos terminales navideños------
-terminal IDENTIFIER;
+
 //Operadores aritmeticos bianrios
 terminal RODOLFO, TURENO, COMETA, DASHER, DANCER, PRANCER;
 //Operadores aritmeticos unarios
@@ -62,7 +62,7 @@ non terminal navidad, mainNavidad, bolsanavidena, bolsanavidenaAux, listaDeRegal
 listaDeTamalesAux, listaDeTamales, llamadaASanta, listaAmigos, acceso_trineo, llenar_trineo, trineo, infoTrineo, decorarGalleta,
 ponerLuces, if, elif, else, do_until, for, luces, leerCarta, escribirCarta, mensaje, ornamentosUnicos, decoracionesI, decoracionesF,
 decoracion, decoracionIAux, decoracionI, decoracionF, ornamentos, CindyLuWho, whoVille, DonnaWho, SantaMate, workshop, yellowSnow 
-, sugar, candy, candyCane, candyBox, gingerBread ;
+, sugar, candy, candyCane, candyBox, gingerBread, adornoAux, naughtyOrNice;
 
 start with navidad;
 
@@ -87,20 +87,24 @@ listaDeRegalos ::= listaDeRegalosAux
     | listaDeRegalos BASTON listaDeRegalosAux ;
 
 //Sentencia
-adorno ::= llamadaASanta | infoTrineo | decorarGalleta | leerCarta | escribirCarta | luces | decoracionI | decoracionesF
-    |CORTA | ENVIA PERSONA | whoVille | gingerBread;
+//TODO Sentencias son variables, funciones, asignaciones -- quitar whoVille y gingerBread
+adornoAux ::= llamadaASanta | infoTrineo | decorarGalleta | leerCarta | escribirCarta | decoracionI | decoracionesF
+    |CORTA | ENVIA PERSONA | ENVIA tlsantaclaus | whoVille | gingerBread;
+
+adorno ::= adornoAux FINREGALO | luces;
 
 //Cuerpo (cuerpo con sentencia -sentencias o vacio)
-villancicos ::= adorno| villancicos adorno ;
+villancicos ::= adorno | villancicos adorno ;
 
 //Llamada de Funcion
-llamadaASanta ::= PERSONA ABRECUENTO listaDeTamales CIERRACUENTO ;
+llamadaASanta ::= PERSONA ABRECUENTO listaDeTamales CIERRACUENTO | PERSONA ABRECUENTO CIERRACUENTO ;
 
 //Argumentos (tipo identificador)
 listaDeTamalesAux ::= PERSONA | tlsantaclaus ;
 listaDeTamales ::= listaDeTamalesAux
     |listaDeTamales BASTON listaDeTamalesAux ;
 
+//TODO -- Solo int y char
 //Lista de literales
 listaAmigos ::= tlsantaclaus|tlsantaclaus BASTON listaAmigos ;
 
@@ -108,41 +112,46 @@ listaAmigos ::= tlsantaclaus|tlsantaclaus BASTON listaAmigos ;
 acceso_trineo ::= PERSONA ABREEMPAQUE l_SANTA_CLAUS CIERRAEMPAQUE ;
 
 //Asignar al arreglo
-llenar_trineo ::= acceso_trineo ENTREGA ABREEMPAQUE listaAmigos CIERRAEMPAQUE ;
+llenar_trineo ::= acceso_trineo ENTREGA ABREEMPAQUE listaAmigos CIERRAEMPAQUE ; 
+
+// para solo uno: prueba[8] <= [45,23,5,8]
+// prueba <= [45,23,5,8]
 
 //Identificar arreglo
 
 trineo ::= tsantaclaus PERSONA ABREEMPAQUE l_SANTA_CLAUS CIERRAEMPAQUE ;
 
-infoTrineo ::= trineo | llenar_trineo | acceso_trineo | listaAmigos;
+infoTrineo ::= trineo | llenar_trineo | acceso_trineo | listaAmigos ;
 
 //Asignar variable o arreglo
-decorarGalleta ::= LOCAL listaDeRegalosAux FINREGALO
-                |LOCAL listaDeRegalosAux ENTREGA tlsantaclaus FINREGALO
-                |LOCAL trineo FINREGALO ;
+decorarGalleta ::= LOCAL listaDeRegalosAux 
+                |LOCAL listaDeRegalosAux ENTREGA tlsantaclaus 
+                |LOCAL listaDeRegalosAux ENTREGA whoVille
+                |LOCAL listaDeRegalosAux ENTREGA gingerBread
+                |LOCAL trineo ;
 
 //Condicionales
 ponerLuces ::= elif|else ;
 //If
-if ::= ELFO ABRECUENTO CIERRACUENTO ABREREGALO villancicos CIERRAREGALO ponerLuces ;
+if ::= ELFO ABRECUENTO gingerBread CIERRACUENTO ABREREGALO villancicos CIERRAREGALO ponerLuces ;
 
 //Elif
-elif ::= HADA ABRECUENTO CIERRACUENTO ABREREGALO villancicos CIERRAREGALO ponerLuces ;
+elif ::= HADA ABRECUENTO gingerBread CIERRACUENTO ABREREGALO villancicos CIERRAREGALO ponerLuces ;
 
 //Else
-else ::= DUENDE ABREREGALO villancicos CIERRAREGALO ;
+else ::= DUENDE ABREREGALO villancicos CIERRAREGALO FINREGALO;
 
 //Do Until
-do_until ::= HACE ABREREGALO villancicos CIERRAREGALO REVISA ABRECUENTO CIERRACUENTO FINREGALO ;
+do_until ::= HACE ABREREGALO villancicos CIERRAREGALO REVISA ABRECUENTO gingerBread CIERRACUENTO FINREGALO;
 
 //For
-for ::= ENVUELVE ABRECUENTO decorarGalleta decorarGalleta CIERRACUENTO ABREREGALO villancicos CIERRAREGALO FINREGALO ;
+for ::= ENVUELVE ABRECUENTO decorarGalleta BASTON gingerBread BASTON decoracion CIERRACUENTO ABREREGALO villancicos CIERRAREGALO FINREGALO;
 
 //Lectura
-leerCarta ::= ESCUCHA ABRECUENTO PERSONA CIERRACUENTO FINREGALO ;
+leerCarta ::= ESCUCHA ABRECUENTO PERSONA CIERRACUENTO ;
 
 //Escritura
-escribirCarta ::= NARRA ABRECUENTO mensaje CIERRACUENTO FINREGALO ;
+escribirCarta ::= NARRA ABRECUENTO mensaje CIERRACUENTO ;
 
 //Unarias
 decoracionesI ::= decoracionI | decoracion ;
@@ -153,24 +162,17 @@ decoracionI ::= decoracionIAux l_SANTA_CLAUS ;
 decoracionF::= TURENO l_PAPA_NOEL ;
 
 //Operaciones aritmeticas
-CindyLuWho ::= SantaMate | SantaMate ornamentos CindyLuWho | SantaMate ornamentos whoVille | whoVille ornamentos CindyLuWho ;
-            
+CindyLuWho ::= SantaMate | SantaMate ornamentos CindyLuWho | SantaMate ornamentos whoVille | whoVille ornamentos CindyLuWho ;          
 DonnaWho ::= ABRECUENTO CindyLuWho CIERRACUENTO;
-
 whoVille ::= DonnaWho | ABRECUENTO DonnaWho CIERRACUENTO;
             
 //Operaciones logicas
-/*
-mintAux::= SantaMate workshop SantaMate | SantaMate workshop mint | mint workshop SantaMate;
-mint::= ABRECUENTO mintAux CIERRACUENTO;
-candyCaneAux::= mint | mintAux | mint yellowSnow candyCaneAux | mintAux yellowSnow candyCaneAux ;
-candyCane ::= candyCaneAux | PERSONA yellowSnow candyCane ; 
-*/
 sugar ::= SantaMate workshop SantaMate | whoVille workshop SantaMate | SantaMate workshop whoVille | whoVille workshop whoVille ;
-candy ::= sugar | BALTAZAR sugar | PERSONA | BALTAZAR PERSONA ;
+candy ::= sugar | BALTAZAR sugar | PERSONA | BALTAZAR PERSONA | naughtyOrNice | BALTAZAR naughtyOrNice | llamadaASanta | BALTAZAR llamadaASanta | candyBox;
 candyCane ::= candy | candy yellowSnow candyCane ;
 candyBox ::= ABREREGALO candyCane CIERRAREGALO | BALTAZAR ABREREGALO candyCane CIERRAREGALO ;
 gingerBread ::= candyBox | candyBox yellowSnow gingerBread ;
+
 
 luces ::= 
     if|
@@ -194,7 +196,8 @@ tlsantaclaus ::=
 
 SantaMate ::= l_SANTA_CLAUS|
     l_PAPA_NOEL|
-    PERSONA;
+    PERSONA|
+    llamadaASanta;
 
 mensaje ::= 
     l_SANTA_CLAUS|
@@ -224,3 +227,7 @@ workshop::=
 
 yellowSnow::= MELCHOR|
     GASPAR;
+
+naughtyOrNice::= 
+    l_FFATHER_CHRISTMAS|
+    l_TFATHER_CHRISTMAS;
