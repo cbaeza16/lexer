@@ -59,10 +59,10 @@ terminal FINREGALO;
 //-----Simbolos no terminales navideños------
 non terminal tsantaclaus, tlsantaclaus;
 non terminal navidad, mainNavidad, bolsanavidena, bolsanavidenaAux, listaDeRegalos, listaDeRegalosAux, villancicos, adorno,
-listaDeTamalesAux, listaDeTamales, llamadaASanta, listaAmigos, acceso_trineo, llenar_trineo, trineo, infoTrineo, decorarGalleta,
-ponerLuces, if, elif, else, do_until, for, luces, leerCarta, escribirCarta, mensaje, ornamentosUnicos, decoracionesI, decoracionesF,
-decoracion, decoracionIAux, decoracionI, decoracionF, ornamentos, CindyLuWho, whoVille, DonnaWho, SantaMate, workshop, yellowSnow 
-, sugar, candy, candyCane, candyBox, gingerBread, adornoAux, naughtyOrNice;
+listaDeTamalesAux, listaDeTamales, llamadaASanta, listaAmigos, acceso_trineo, llenar_trineo, colocar_trineo, SantaArreglo, trineo, infoTrineo, 
+decorarGalleta, ponerLuces, if, elif, else, do_until, for, luces, leerCarta, escribirCarta, mensaje, ornamentosUnicos, decoracionesI, 
+decoracionesF, decoracion, decoracionIAux, decoracionI, decoracionF, ornamentos, CindyLuWho, whoVille, DonnaWho, SantaMate, workshop, 
+yellowSnow, sugar, candy, candyCane, candyBox, gingerBread, adornoAux, naughtyOrNice;
 
 start with navidad;
 
@@ -86,10 +86,9 @@ listaDeRegalosAux ::= tsantaclaus PERSONA ;
 listaDeRegalos ::= listaDeRegalosAux
     | listaDeRegalos BASTON listaDeRegalosAux ;
 
-//Sentencia
-//TODO Sentencias son variables, funciones, asignaciones -- quitar whoVille y gingerBread
+//Sentencia variables, funciones, asignaciones
 adornoAux ::= llamadaASanta | infoTrineo | decorarGalleta | leerCarta | escribirCarta | decoracionI | decoracionesF
-    |CORTA | ENVIA PERSONA | ENVIA tlsantaclaus | whoVille | gingerBread;
+    |CORTA | ENVIA PERSONA | ENVIA tlsantaclaus ;
 
 adorno ::= adornoAux FINREGALO | luces;
 
@@ -104,24 +103,22 @@ listaDeTamalesAux ::= PERSONA | tlsantaclaus ;
 listaDeTamales ::= listaDeTamalesAux
     |listaDeTamales BASTON listaDeTamalesAux ;
 
-//TODO -- Solo int y char
-//Lista de literales
-listaAmigos ::= tlsantaclaus|tlsantaclaus BASTON listaAmigos ;
+//Lista de int o char
+listaAmigos ::= SantaArreglo|SantaArreglo BASTON listaAmigos ;
 
 //Acceso al arreglo
 acceso_trineo ::= PERSONA ABREEMPAQUE l_SANTA_CLAUS CIERRAEMPAQUE ;
 
 //Asignar al arreglo
-llenar_trineo ::= acceso_trineo ENTREGA ABREEMPAQUE listaAmigos CIERRAEMPAQUE ; 
+llenar_trineo ::= acceso_trineo ENTREGA SantaArreglo ;
 
-// para solo uno: prueba[8] <= [45,23,5,8]
-// prueba <= [45,23,5,8]
+colocar_trineo ::= PERSONA ENTREGA ABREEMPAQUE listaAmigos CIERRAEMPAQUE ; 
 
 //Identificar arreglo
 
 trineo ::= tsantaclaus PERSONA ABREEMPAQUE l_SANTA_CLAUS CIERRAEMPAQUE ;
 
-infoTrineo ::= trineo | llenar_trineo | acceso_trineo | listaAmigos ;
+infoTrineo ::= trineo | llenar_trineo | acceso_trineo | colocar_trineo | listaAmigos ;
 
 //Asignar variable o arreglo
 decorarGalleta ::= LOCAL listaDeRegalosAux 
@@ -198,6 +195,10 @@ SantaMate ::= l_SANTA_CLAUS|
     l_PAPA_NOEL|
     PERSONA|
     llamadaASanta;
+
+SantaArreglo ::= 
+    l_SANTA_CLAUS|
+    l_SANTA;
 
 mensaje ::= 
     l_SANTA_CLAUS|
