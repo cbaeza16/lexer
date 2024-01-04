@@ -58,7 +58,7 @@ terminal FINREGALO;
 
 //-----Simbolos no terminales navideños------
 non terminal tsantaclaus, tlsantaclaus;
-non terminal navidad, mainNavidad, bolsanavidena, bolsanavidenaAux, listaDeRegalos, listaDeRegalosAux, villancicos, adorno,
+non terminal navidad, navidadAux, mainNavidad, bolsanavidena, bolsanavidenaAux, listaDeRegalos, listaDeRegalosAux, villancicos, adorno,
 listaDeTamalesAux, listaDeTamales, llamadaASanta, listaAmigos, acceso_trineo, llenar_trineo, colocar_trineo, SantaArreglo, trineo, infoTrineo, 
 decorarGalleta, ponerLuces, if, elif, else, do_until, for, luces, leerCarta, escribirCarta, mensaje, ornamentosUnicos, decoracionesI, 
 decoracionesF, decoracion, decoracionIAux, decoracionI, decoracionF, ornamentos, CindyLuWho, whoVille, DonnaWho, SantaMate, workshop, 
@@ -67,8 +67,12 @@ yellowSnow, sugar, candy, candyCane, candyBox, gingerBread, adornoAux, naughtyOr
 start with navidad;
 
 //Programa Simbolo inicial = navidad (puede correr funcion principal)
-navidad ::= mainNavidad|
-        bolsanavidena mainNavidad;
+navidad ::= {:System.out.println("Inicio de parseo");:} navidadAux {:System.out.println("Fin de parseo");:} ;
+
+navidadAux ::= mainNavidad|
+        bolsanavidena mainNavidad ; 
+
+
 
 //Funcion Main
 mainNavidad ::= FUNCTION MAIN ABRECUENTO CIERRACUENTO ABREREGALO villancicos CIERRAREGALO ;
@@ -159,7 +163,10 @@ decoracionI ::= decoracionIAux l_SANTA_CLAUS ;
 decoracionF::= TURENO l_PAPA_NOEL ;
 
 //Operaciones aritmeticas
-CindyLuWho ::= SantaMate | SantaMate ornamentos CindyLuWho | SantaMate ornamentos whoVille | whoVille ornamentos CindyLuWho ;          
+CindyLuWho ::= SantaMate:sm ornamentos:om CindyLuWho {:System.out.println(om); System.out.println(sm); :} 
+        | SantaMate:sm ornamentos:om whoVille {:System.out.println(om); System.out.println(sm);:} 
+        | whoVille ornamentos:om CindyLuWho {:System.out.println(om);:} 
+        | SantaMate:sm {:System.out.println(sm);:} ;          
 DonnaWho ::= ABRECUENTO CindyLuWho CIERRACUENTO;
 whoVille ::= DonnaWho | ABRECUENTO DonnaWho CIERRACUENTO;
             
@@ -191,9 +198,9 @@ tlsantaclaus ::=
     l_FFATHER_CHRISTMAS|
     l_SAN_NICOLAS;
 
-SantaMate ::= l_SANTA_CLAUS|
-    l_PAPA_NOEL|
-    PERSONA|
+SantaMate ::= l_SANTA_CLAUS:lst {:RESULT = lst;:}|
+    l_PAPA_NOEL:lst {:RESULT = lst;:}|
+    PERSONA:lst {:RESULT = lst;:}|
     llamadaASanta;
 
 SantaArreglo ::= 
@@ -211,12 +218,12 @@ ornamentosUnicos ::=
     GRINCH;
 
 ornamentos::=
-    RODOLFO|
-    TURENO|
-    COMETA|
-    DASHER|
-    DANCER|
-    PRANCER;
+    RODOLFO:om {:RESULT =om;:}|
+    TURENO:om {:RESULT =om;:}|
+    COMETA:om {:RESULT =om;:}|
+    DASHER:om {:RESULT =om;:}|
+    DANCER:om {:RESULT =om;:}|
+    PRANCER:om {:RESULT =om;:};
 
 workshop::=
     SUGARPLUM|

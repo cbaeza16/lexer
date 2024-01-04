@@ -56,9 +56,7 @@ public class Main {
 
         Lexer lexer = new Lexer(readerx);
         parser myParser = new parser (lexer);
-        System.out.println("aqui");
-        myParser.parse();
-        System.out.println("aqui");
+        myParser.parse();    
     }
 
 

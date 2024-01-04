@@ -118,15 +118,15 @@ whitespace = [ \t\n]
 
   /* operadores */
   "<="                            { return symbol(sym.ENTREGA); }
-  "+"                            { return symbol(sym.RODOLFO); }
+  "+"                            { return symbol(sym.RODOLFO, yytext()); }
   "++"                           { return symbol(sym.QUIEN);}
-  "-"                            { return symbol(sym.TURENO);}
+  "-"                            { return symbol(sym.TURENO, yytext());}
   "--"                           { return symbol(sym.GRINCH); }
-  "*"                            { return symbol(sym.COMETA); }
-  "/"                            { return symbol(sym.DASHER) ;}
+  "*"                            { return symbol(sym.COMETA, yytext()); }
+  "/"                            { return symbol(sym.DASHER, yytext()) ;}
   ","                            { return symbol(sym.BASTON);}
-  "~"                            { return symbol(sym.DANCER);}
-  "**"                            { return symbol(sym.PRANCER);}     
+  "~"                            { return symbol(sym.DANCER, yytext());}
+  "**"                            { return symbol(sym.PRANCER, yytext());}     
   
   /* relacionales */
   "=="                           { return symbol(sym.SNOWBALL); }

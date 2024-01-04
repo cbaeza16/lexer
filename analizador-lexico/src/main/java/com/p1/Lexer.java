@@ -1151,12 +1151,12 @@ public class Lexer implements java_cup.runtime.Scanner {
           // fall through
           case 68: break;
           case 9:
-            { return symbol(sym.COMETA);
+            { return symbol(sym.COMETA, yytext());
             }
           // fall through
           case 69: break;
           case 10:
-            { return symbol(sym.RODOLFO);
+            { return symbol(sym.RODOLFO, yytext());
             }
           // fall through
           case 70: break;
@@ -1166,12 +1166,12 @@ public class Lexer implements java_cup.runtime.Scanner {
           // fall through
           case 71: break;
           case 12:
-            { return symbol(sym.TURENO);
+            { return symbol(sym.TURENO, yytext());
             }
           // fall through
           case 72: break;
           case 13:
-            { return symbol(sym.DASHER) ;
+            { return symbol(sym.DASHER, yytext()) ;
             }
           // fall through
           case 73: break;
@@ -1221,7 +1221,7 @@ public class Lexer implements java_cup.runtime.Scanner {
           // fall through
           case 82: break;
           case 23:
-            { return symbol(sym.DANCER);
+            { return symbol(sym.DANCER, yytext());
             }
           // fall through
           case 83: break;
@@ -1248,7 +1248,7 @@ public class Lexer implements java_cup.runtime.Scanner {
           // fall through
           case 87: break;
           case 28:
-            { return symbol(sym.PRANCER);
+            { return symbol(sym.PRANCER, yytext());
             }
           // fall through
           case 88: break;
