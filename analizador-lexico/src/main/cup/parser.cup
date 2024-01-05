@@ -232,11 +232,7 @@ decoracionIAux ::= ornamentosUnicos | TURENO ;
 decoracionI ::= decoracionIAux l_SANTA_CLAUS ;
 decoracionF::= TURENO l_PAPA_NOEL ;
 
-//Operaciones aritmeticas
-//CindyLuWho ::= SantaMate:sm ornamentos:om CindyLuWho {:System.out.println(om); System.out.println(sm); :} 
-//        | SantaMate:sm ornamentos:om whoVille {:System.out.println(om); System.out.println(sm);:} 
-//        | whoVille ornamentos:om CindyLuWho {:System.out.println(om);:} 
-//        | SantaMate:sm {:System.out.println(sm);:} ;        
+//Operaciones aritmeticas  
 
 CindyLuWho ::= CindyLuWho RODOLFO CindyLuWho | CindyLuWhoS RODOLFO CindyLuWhoS| whoVille RODOLFO CindyLuWho| CindyLuWhoS
             | CindyLuWho TURENO CindyLuWho | CindyLuWhoS TURENO CindyLuWhoS| whoVille TURENO CindyLuWho;
