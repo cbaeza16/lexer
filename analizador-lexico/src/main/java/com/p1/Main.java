@@ -25,6 +25,7 @@ public class Main {
         String result = "";
         boolean bandera = true;
 
+        System.out.println("-------Inicio Fase Lexica-------");
 
         while(bandera){
             token = lex.next_token();
@@ -35,12 +36,13 @@ public class Main {
                 ", Linea: "+ String.valueOf(lex.getLine())+", Columna: "+ String.valueOf(lex.getCol()));
             }else{
                 result += "Cantidad de lexemas encontrados: "+ String.valueOf(i);
-                System.out.println( "Cantidad de lexemas encontrados: "+ String.valueOf(i));
+                System.out.println( "\nCantidad de lexemas encontrados: "+ String.valueOf(i)+ "\n");
                 bandera = false;
             }
             i ++;
         }
-            
+         
+        System.out.println("-------Fin Fase Lexica-------\n");
         BufferedWriter writer = new BufferedWriter(new FileWriter(rutaSalida, false));
         writer.write(result);
         writer.close();

@@ -7,28 +7,35 @@ function int hola () {
     return false |
 }
 
+@ERROR
+hola
+
 function boolean test (){
     @Prueba de operaciones logicas
     @variables or boolean expresion and/or ... (no se permite el uso de parentesis, solo para expresiones aritmeticas)
     @cada operacion booleana debe estar entre {}
+    
+    @ERROR
+    3+2
     local int test1 <=  {3 < 4} |
     local int test1 <=  {4 => 18.5} |
     local int test1 <= {8 != var # 2 == 4} |
     local int test1 <= {var # var1 != 4} |
-    local int test1 <= { 1 == (test + prueba) ^ tomato < 4 # 25 != 4} |
     local int test1 <= {test2 # 28 > 6} |
     local int test1 <= {test2 ^ 3 < 4}  |
     local int test1 <= { 3 > 4 # test1} |
     local int test1 <= {test # (3 + (i**2 - 8)) > 8 ^ !test2 } # {var == 3} ^ !{var5 != (3**3 * 8)} |
     local int test1 <= {(8 + funcionArit()) < 80 ^ false} # {funcionBool() # true}|
     local int test1 <= {true # true ^ false # {false # true} ^ false # true # !{8 < z # {true} # (8+z**2) > t}} |
+    @Prueba combinacion artmetica unaria y binaria, y logica
+    local int test1 <= { 1 == (test +  ++prueba) ^ tomato < 4 # 25 != 4} |
 }
 
 function int sum (int num1, int num2) {
     @Prueba de aritmetica
     @NOTA: Siempre entre parentesis ( )
     @TODO: toma el 8+9 como float
-    local int test1 <= (4 + 2 + 9 - 3 / 5) |
+    local int test1 <= (4 + 2 + 9 - - 3 / 5) |
     local int test2 <= (6) |
     local int test1 <= ((7 + 8 - 4)) |
     local int test1 <= (4 - (8 + 5.26 * 3)) |
