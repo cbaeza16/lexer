@@ -3,15 +3,37 @@ package com.p1;
 import java_cup.runtime.*;
 import java.lang.*;
 
+//imports para manejo de tabla de simbolos
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ArrayList;
+
 
 action code {:
+    //Nombre y lista de identificadores de la funcion
+    HashMap<String, ArrayList<String>> listaTablasSimbolos = new HashMap<String, ArrayList<String>>();
+    //Funcion actual
+    String currentHash;
+
+    //Funcion para imprimir tabla de simbolos
+    public void imprimirTablaSimbolos(){
+        for (String key: listaTablasSimbolos.keySet()){
+            System.out.println("Tabla de simbolo : " + key);
+            System.out.println("Valores : ");
+            for (String item : listaTablasSimbolos.get(key)){
+                System.out.println(item);
+            }
+            System.out.println("");
+        }
+
+    }
 
     public void hola(){
         System.out.println("Hola");
     }
     public void adios(){
-            System.out.println("Adios");
-        }
+        System.out.println("Adios");
+    }
 
 :}
 
@@ -24,6 +46,7 @@ parser code {:
         this.symbolFactory = new DefaultSymbolFactory();
     }
 :}
+
 
 init with {: :};
 scan with {: return lex.next_token(); :};
@@ -58,16 +81,27 @@ terminal FINREGALO;
 
 //-----Simbolos no terminales navideños------
 non terminal tsantaclaus, tlsantaclaus;
-non terminal navidad, navidadAux, mainNavidad, bolsanavidena, bolsanavidenaAux, listaDeRegalos, listaDeRegalosAux, villancicos, adorno,
-listaDeTamalesAux, listaDeTamales, llamadaASanta, listaAmigos, acceso_trineo, llenar_trineo, colocar_trineo, SantaArreglo, trineo, infoTrineo, 
-decorarGalleta, ponerLuces, if, elif, else, do_until, for, luces, leerCarta, escribirCarta, mensaje, ornamentosUnicos, decoracionesI, 
-decoracionesF, decoracion, decoracionIAux, decoracionI, decoracionF, ornamentos, CindyLuWho, whoVille, DonnaWho, SantaMate, workshop, 
-yellowSnow, sugar, candy, candyCane, candyBox, gingerBread, adornoAux, naughtyOrNice;
+non terminal navidad, navidadAux, mainNavidad, bolsanavidena, bolsaAux, bolsanavidenaAux, listaDeRegalos, listaDeRegalosAux, villancicos, adorno,
+listaDeTamalesAux, listaDeTamales, llamadaASanta, llamadaASantaAux, listaAmigos, acceso_trineo, llenar_trineo, colocar_trineo, SantaArreglo, trineo, infoTrineo, 
+decorarGalleta, ponerLuces, if, elif, else, do_until, for, luces, leerCarta, escribirCarta, mensaje, ornamentosUnicos, 
+decoracionesF, decoracion, decoracionIAux, decoracionI, decoracionF, CindyLuWho, whoVille, SantaMate, workshop, yellowSnow,
+sugar, candy, candyCane, candyBox, gingerBread, adornoAux, naughtyOrNice, CindyLuWhoS, CindyLuWhoT;
+
+precedence left RODOLFO, TURENO;
+precedence left COMETA, DASHER, DANCER;
+precedence left PRANCER;
 
 start with navidad;
 
 //Programa Simbolo inicial = navidad (puede correr funcion principal)
-navidad ::= {:System.out.println("Inicio de parseo");:} navidadAux {:System.out.println("Fin de parseo");:} ;
+navidad ::= {:
+        System.out.println("Inicio de parseo");
+    :}
+    navidadAux 
+    {:
+        //imprimirTablaSimbolos();
+        System.out.println("Fin de parseo");
+    :} ;
 
 navidadAux ::= mainNavidad|
         bolsanavidena mainNavidad ; 
@@ -77,10 +111,24 @@ navidadAux ::= mainNavidad|
 //Funcion Main
 mainNavidad ::= FUNCTION MAIN ABRECUENTO CIERRACUENTO ABREREGALO villancicos CIERRAREGALO ;
 
-//Creacion de funciones con palabra resevada "function" tipo identificador (parametros) {cuerpo}
 
-bolsanavidenaAux ::= FUNCTION tsantaclaus PERSONA ABRECUENTO CIERRACUENTO ABREREGALO villancicos CIERRAREGALO
-    | FUNCTION tsantaclaus PERSONA ABRECUENTO listaDeRegalos CIERRACUENTO ABREREGALO villancicos CIERRAREGALO  ;
+bolsaAux ::= FUNCTION tsantaclaus:tsc  PERSONA:per
+            /**{:
+                System.out.println("Inicio de Funcion");
+                String tipoTabla = "main";
+                if (per.toString().equals("main"))
+                    tipoTabla = "tipo:main:"+tsc.toString();
+                else
+                    tipoTabla = "tipo:funcion:"+tsc.toString();
+                    ArrayList<String> funcionMain = new ArrayList<String>();
+                    currentHash = per.toString();
+                    funcionMain.add(tipoTabla);
+                    listaTablasSimbolos.put(currentHash, funcionMain);
+            :}**/ ;
+
+//Creacion de funciones con palabra resevada "function" tipo identificador (parametros) {cuerpo}
+bolsanavidenaAux ::= bolsaAux ABRECUENTO CIERRACUENTO ABREREGALO villancicos CIERRAREGALO
+    | bolsaAux ABRECUENTO listaDeRegalos CIERRACUENTO ABREREGALO villancicos CIERRAREGALO ;
 
 //Creacion de una o varias funciones
 bolsanavidena ::= bolsanavidenaAux | bolsanavidena bolsanavidenaAux ;
@@ -100,7 +148,8 @@ adorno ::= adornoAux FINREGALO | luces;
 villancicos ::= adorno | villancicos adorno ;
 
 //Llamada de Funcion
-llamadaASanta ::= PERSONA ABRECUENTO listaDeTamales CIERRACUENTO | PERSONA ABRECUENTO CIERRACUENTO ;
+llamadaASantaAux ::= PERSONA:lst {:RESULT = lst;:} ;
+llamadaASanta ::= llamadaASantaAux ABRECUENTO listaDeTamales CIERRACUENTO | llamadaASantaAux ABRECUENTO CIERRACUENTO ;
 
 //Argumentos (tipo identificador)
 listaDeTamalesAux ::= PERSONA | tlsantaclaus ;
@@ -155,7 +204,6 @@ leerCarta ::= ESCUCHA ABRECUENTO PERSONA CIERRACUENTO ;
 escribirCarta ::= NARRA ABRECUENTO mensaje CIERRACUENTO ;
 
 //Unarias
-decoracionesI ::= decoracionI | decoracion ;
 decoracionesF ::= decoracionF | decoracion ;
 decoracion ::= ornamentosUnicos PERSONA ;
 decoracionIAux ::= ornamentosUnicos | TURENO ;
@@ -163,12 +211,17 @@ decoracionI ::= decoracionIAux l_SANTA_CLAUS ;
 decoracionF::= TURENO l_PAPA_NOEL ;
 
 //Operaciones aritmeticas
-CindyLuWho ::= SantaMate:sm ornamentos:om CindyLuWho {:System.out.println(om); System.out.println(sm); :} 
-        | SantaMate:sm ornamentos:om whoVille {:System.out.println(om); System.out.println(sm);:} 
-        | whoVille ornamentos:om CindyLuWho {:System.out.println(om);:} 
-        | SantaMate:sm {:System.out.println(sm);:} ;          
-DonnaWho ::= ABRECUENTO CindyLuWho CIERRACUENTO;
-whoVille ::= DonnaWho | ABRECUENTO DonnaWho CIERRACUENTO;
+//CindyLuWho ::= SantaMate:sm ornamentos:om CindyLuWho {:System.out.println(om); System.out.println(sm); :} 
+//        | SantaMate:sm ornamentos:om whoVille {:System.out.println(om); System.out.println(sm);:} 
+//        | whoVille ornamentos:om CindyLuWho {:System.out.println(om);:} 
+//        | SantaMate:sm {:System.out.println(sm);:} ;        
+
+CindyLuWho ::= CindyLuWho RODOLFO:rf {:System.out.println(rf);:} CindyLuWho | CindyLuWhoS RODOLFO CindyLuWhoS| whoVille RODOLFO CindyLuWho| CindyLuWhoS
+            | CindyLuWho TURENO CindyLuWho | CindyLuWhoS TURENO CindyLuWhoS| whoVille TURENO CindyLuWho;
+CindyLuWhoS ::= CindyLuWhoS COMETA CindyLuWhoS |CindyLuWhoS DASHER CindyLuWhoS| CindyLuWhoS DANCER CindyLuWhoS| CindyLuWhoT ;
+CindyLuWhoT ::=  CindyLuWhoT PRANCER CindyLuWhoT | SantaMate:sm {:System.out.println(sm);:} | whoVille;
+
+whoVille ::= ABRECUENTO CindyLuWho CIERRACUENTO;
             
 //Operaciones logicas
 sugar ::= SantaMate workshop SantaMate | whoVille workshop SantaMate | SantaMate workshop whoVille | whoVille workshop whoVille ;
@@ -184,11 +237,11 @@ luces ::=
     for;
 
 tsantaclaus ::= 
-    FATHER_CHRISTMAS|
-    SANTA_CLAUS|
-    PAPA_NOEL|
-    SAN_NICOLAS|
-    SANTA;
+    FATHER_CHRISTMAS:tsc {:RESULT = tsc;:}|
+    SANTA_CLAUS:tsc {:RESULT = tsc;:}|
+    PAPA_NOEL:tsc {:RESULT = tsc;:}|
+    SAN_NICOLAS:tsc {:RESULT = tsc;:}|
+    SANTA:tsc {:RESULT = tsc;:};
 
 tlsantaclaus ::=
     l_SANTA_CLAUS|
@@ -201,7 +254,7 @@ tlsantaclaus ::=
 SantaMate ::= l_SANTA_CLAUS:lst {:RESULT = lst;:}|
     l_PAPA_NOEL:lst {:RESULT = lst;:}|
     PERSONA:lst {:RESULT = lst;:}|
-    llamadaASanta;
+    llamadaASanta:lst {:RESULT = lst;:} ;
 
 SantaArreglo ::= 
     l_SANTA_CLAUS|
@@ -217,13 +270,14 @@ ornamentosUnicos ::=
     QUIEN|
     GRINCH;
 
-ornamentos::=
+/**ornamentos::=
     RODOLFO:om {:RESULT =om;:}|
     TURENO:om {:RESULT =om;:}|
     COMETA:om {:RESULT =om;:}|
     DASHER:om {:RESULT =om;:}|
     DANCER:om {:RESULT =om;:}|
     PRANCER:om {:RESULT =om;:};
+**/
 
 workshop::=
     SUGARPLUM|
