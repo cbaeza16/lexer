@@ -39,14 +39,15 @@ function int sum (int num1, int num2) {
     local int test1 <= (89**9 + funcionArit() * 89) |
 }
 
-function int holaa (boolean var1) {
+function int prueba (boolean var1) {
     @Pruebas Arreglos
     trineo1[2] |
     trineo2 [2] <= 'c' |
     trineo2 [2] <= 6 |
-    char trineo3 [6] |
+    local char trineo3 [6] |
     local int trineo1[2]|
     trineo2  <= [6, 3] |
+    local char dave <= 'l' |
     trineo2  <= ['h','i'] |
     
     @Pruebas variables

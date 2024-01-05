@@ -81,9 +81,9 @@ terminal FINREGALO;
 
 //-----Simbolos no terminales navideños------
 non terminal tsantaclaus, tlsantaclaus;
-non terminal navidad, navidadAux, mainNavidad, bolsanavidena, bolsaAux, bolsanavidenaAux, listaDeRegalos, listaDeRegalosAux, villancicos, adorno,
+non terminal navidad, navidadAux, mainNavidad, mainNavidadAux, bolsanavidena, bolsaAux, bolsanavidenaAux, listaDeRegalos, listaDeRegalosAux, villancicos, adorno,
 listaDeTamalesAux, listaDeTamales, llamadaASanta, llamadaASantaAux, listaAmigos, acceso_trineo, llenar_trineo, colocar_trineo, SantaArreglo, trineo, infoTrineo, 
-decorarGalleta, ponerLuces, if, elif, else, do_until, for, luces, leerCarta, escribirCarta, mensaje, ornamentosUnicos, 
+decorarGalleta, ayudanteDeGalleta, ponerLuces, if, elif, else, do_until, for, luces, leerCarta, escribirCarta, mensaje, ornamentosUnicos, 
 decoracionesF, decoracion, decoracionIAux, decoracionI, decoracionF, CindyLuWho, whoVille, SantaMate, workshop, yellowSnow,
 sugar, candy, candyCane, candyBox, gingerBread, adornoAux, naughtyOrNice, CindyLuWhoS, CindyLuWhoT;
 
@@ -96,10 +96,13 @@ start with navidad;
 //Programa Simbolo inicial = navidad (puede correr funcion principal)
 navidad ::= {:
         System.out.println("Inicio de parseo");
+        System.out.println(" ");
     :}
     navidadAux 
     {:
-        //imprimirTablaSimbolos();
+        System.out.println("*********** Cargando Tabla de Simbolos ************");
+        System.out.println(" ");
+        imprimirTablaSimbolos();
         System.out.println("Fin de parseo");
     :} ;
 
@@ -109,22 +112,29 @@ navidadAux ::= mainNavidad|
 
 
 //Funcion Main
-mainNavidad ::= FUNCTION MAIN ABRECUENTO CIERRACUENTO ABREREGALO villancicos CIERRAREGALO ;
+mainNavidadAux ::= FUNCTION MAIN ABRECUENTO CIERRACUENTO 
+            {:
+                //System.out.println("NuevaFuncion");
+                String tipoTabla = "tipo:main";
+                ArrayList<String> funcionMain = new ArrayList<String>();
+                currentHash = "main";
+                funcionMain.add(tipoTabla);
+                listaTablasSimbolos.put(currentHash, funcionMain);
+            :};
+
+mainNavidad ::= mainNavidadAux ABREREGALO villancicos CIERRAREGALO ;
 
 
 bolsaAux ::= FUNCTION tsantaclaus:tsc  PERSONA:per
-            /**{:
-                System.out.println("Inicio de Funcion");
-                String tipoTabla = "main";
-                if (per.toString().equals("main"))
-                    tipoTabla = "tipo:main:"+tsc.toString();
-                else
-                    tipoTabla = "tipo:funcion:"+tsc.toString();
-                    ArrayList<String> funcionMain = new ArrayList<String>();
-                    currentHash = per.toString();
-                    funcionMain.add(tipoTabla);
-                    listaTablasSimbolos.put(currentHash, funcionMain);
-            :}**/ ;
+            {:
+                //System.out.println("NuevaFuncion");
+                String tipoTabla = "";
+                tipoTabla = "tipo:funcion:"+tsc.toString();
+                ArrayList<String> funcionMain = new ArrayList<String>();
+                currentHash = per.toString();
+                funcionMain.add(tipoTabla);
+                listaTablasSimbolos.put(currentHash, funcionMain);
+            :};
 
 //Creacion de funciones con palabra resevada "function" tipo identificador (parametros) {cuerpo}
 bolsanavidenaAux ::= bolsaAux ABRECUENTO CIERRACUENTO ABREREGALO villancicos CIERRAREGALO
@@ -134,7 +144,11 @@ bolsanavidenaAux ::= bolsaAux ABRECUENTO CIERRACUENTO ABREREGALO villancicos CIE
 bolsanavidena ::= bolsanavidenaAux | bolsanavidena bolsanavidenaAux ;
 
 //Parametros (tipo identificador)
-listaDeRegalosAux ::= tsantaclaus PERSONA ;
+listaDeRegalosAux ::= tsantaclaus: tsan PERSONA: per 
+            {:
+                listaTablasSimbolos.get(currentHash).add("tipo:Param:"+per.toString()+":"+tsan.toString());
+            :};
+
 listaDeRegalos ::= listaDeRegalosAux
     | listaDeRegalos BASTON listaDeRegalosAux ;
 
@@ -169,16 +183,24 @@ colocar_trineo ::= PERSONA ENTREGA ABREEMPAQUE listaAmigos CIERRAEMPAQUE ;
 
 //Identificar arreglo
 
-trineo ::= tsantaclaus PERSONA ABREEMPAQUE l_SANTA_CLAUS CIERRAEMPAQUE ;
+trineo ::= LOCAL tsantaclaus:tsan PERSONA:per ABREEMPAQUE l_SANTA_CLAUS CIERRAEMPAQUE 
+            {:
+                listaTablasSimbolos.get(currentHash).add("tipo:LocalArray:"+per.toString()+":"+tsan.toString());
+            :};
 
-infoTrineo ::= trineo | llenar_trineo | acceso_trineo | colocar_trineo | listaAmigos ;
+infoTrineo ::= trineo | llenar_trineo | acceso_trineo | colocar_trineo ;
 
 //Asignar variable o arreglo
-decorarGalleta ::= LOCAL listaDeRegalosAux 
-                |LOCAL listaDeRegalosAux ENTREGA tlsantaclaus 
-                |LOCAL listaDeRegalosAux ENTREGA whoVille
-                |LOCAL listaDeRegalosAux ENTREGA gingerBread
-                |LOCAL trineo ;
+
+ayudanteDeGalleta ::= LOCAL tsantaclaus:tsan PERSONA:per 
+            {:
+                listaTablasSimbolos.get(currentHash).add("tipo:Local:"+per.toString()+":"+tsan.toString());
+            :};
+
+decorarGalleta ::= ayudanteDeGalleta 
+                |ayudanteDeGalleta ENTREGA tlsantaclaus 
+                |ayudanteDeGalleta ENTREGA whoVille
+                |ayudanteDeGalleta ENTREGA gingerBread ;
 
 //Condicionales
 ponerLuces ::= elif|else ;
@@ -216,10 +238,10 @@ decoracionF::= TURENO l_PAPA_NOEL ;
 //        | whoVille ornamentos:om CindyLuWho {:System.out.println(om);:} 
 //        | SantaMate:sm {:System.out.println(sm);:} ;        
 
-CindyLuWho ::= CindyLuWho RODOLFO:rf {:System.out.println(rf);:} CindyLuWho | CindyLuWhoS RODOLFO CindyLuWhoS| whoVille RODOLFO CindyLuWho| CindyLuWhoS
+CindyLuWho ::= CindyLuWho RODOLFO CindyLuWho | CindyLuWhoS RODOLFO CindyLuWhoS| whoVille RODOLFO CindyLuWho| CindyLuWhoS
             | CindyLuWho TURENO CindyLuWho | CindyLuWhoS TURENO CindyLuWhoS| whoVille TURENO CindyLuWho;
 CindyLuWhoS ::= CindyLuWhoS COMETA CindyLuWhoS |CindyLuWhoS DASHER CindyLuWhoS| CindyLuWhoS DANCER CindyLuWhoS| CindyLuWhoT ;
-CindyLuWhoT ::=  CindyLuWhoT PRANCER CindyLuWhoT | SantaMate:sm {:System.out.println(sm);:} | whoVille;
+CindyLuWhoT ::=  CindyLuWhoT PRANCER CindyLuWhoT | SantaMate | whoVille;
 
 whoVille ::= ABRECUENTO CindyLuWho CIERRACUENTO;
             

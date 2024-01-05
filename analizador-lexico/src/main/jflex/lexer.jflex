@@ -78,11 +78,11 @@ whitespace = [ \t\n]
 
 /* keywords */
 
-<YYINITIAL> "boolean"            { return symbol(sym.FATHER_CHRISTMAS); }
-<YYINITIAL> "int"              { return symbol(sym.SANTA_CLAUS); }
-<YYINITIAL> "float"              { return symbol(sym.PAPA_NOEL); }
-<YYINITIAL> "string"              { return symbol(sym.SAN_NICOLAS); }
-<YYINITIAL> "char"              { return symbol(sym.SANTA); }
+<YYINITIAL> "boolean"            { return symbol(sym.FATHER_CHRISTMAS, yytext()); }
+<YYINITIAL> "int"              { return symbol(sym.SANTA_CLAUS, yytext()); }
+<YYINITIAL> "float"              { return symbol(sym.PAPA_NOEL, yytext()); }
+<YYINITIAL> "string"              { return symbol(sym.SAN_NICOLAS, yytext()); }
+<YYINITIAL> "char"              { return symbol(sym.SANTA, yytext()); }
 
 <YYINITIAL> "true"              { return symbol(sym.l_TFATHER_CHRISTMAS); }
 <YYINITIAL> "false"              { return symbol(sym.l_FFATHER_CHRISTMAS); }
