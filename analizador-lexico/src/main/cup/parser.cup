@@ -78,11 +78,12 @@ terminal FINREGALO;
 
 //-----Simbolos no terminales navideños------
 non terminal tsantaclaus, tlsantaclaus;
-non terminal navidad, navidadAux, mainNavidad, mainNavidadAux, bolsanavidena, bolsaAux, bolsanavidenaAux, listaDeRegalos, listaDeRegalosAux, villancicos, adorno,
-listaDeTamalesAux, listaDeTamales, llamadaASanta, llamadaASantaAux, listaAmigos, acceso_trineo, llenar_trineo, colocar_trineo, SantaArreglo, trineo, infoTrineo, 
+non terminal navidad, navidadAux, mainNavidad, mainNavidadAux, bolsanavidena, bolsaAux, bolsanavidenaAux, listaDeRegalos, listaDeRegalosAux,
+listaDeTamalesAux, listaDeTamales, llamadaASanta, PersonaAux, listaAmigos, acceso_trineo, llenar_trineo, colocar_trineo, SantaArreglo, trineo, 
 decorarGalleta, ayudanteDeGalleta, ponerLuces, if, elif, else, do_until, for, luces, leerCarta, escribirCarta, mensaje, ornamentosUnicos, 
 decoracionesF, decoracion, decoracionIAux, decoracionI, decoracionF, decoracionesNav, CindyLuWho, whoVille, SantaMate, workshop, yellowSnow,
-sugar, candy, candyCane, candyBox, gingerBread, adornoAux, naughtyOrNice, CindyLuWhoS, CindyLuWhoT;
+sugar, candy, candyCane, candyBox, gingerBread, adornoAux, naughtyOrNice, CindyLuWhoS, CindyLuWhoT, SantaMateAux, workshopAux, yellowSnowAux,
+rodolfoAux, turenoAux, cometaAux, dasherAux, dancerAux, prancerAux, adorno, villancicos, infoTrineo;
 
 precedence left RODOLFO, TURENO;
 precedence left COMETA, DASHER, DANCER;
@@ -92,15 +93,15 @@ start with navidad;
 
 //Programa Simbolo inicial = navidad (puede correr funcion principal)
 navidad ::= {:
-        System.out.println("-------Inicio de parseo-------");
+        System.out.println("-------Inicio Fase Sintactica-------");
         System.out.println(" ");
     :}
     navidadAux 
     {:
-        System.out.println("*********** Cargando Tabla de Simbolos ************");
+        System.out.println("****** Cargando Tabla de Simbolos ******");
         System.out.println(" ");
         imprimirTablaSimbolos();
-        System.out.println("-------Fin de parseo-------");
+        System.out.println("-------Fin Fase Sintactica-------");
     :} ;
 
 navidadAux ::= mainNavidad|
@@ -133,7 +134,7 @@ bolsaAux ::= FUNCTION tsantaclaus:tsc  PERSONA:per
 
 //Creacion de funciones con palabra resevada "function" tipo identificador (parametros) {cuerpo}
 bolsanavidenaAux ::= bolsaAux ABRECUENTO CIERRACUENTO ABREREGALO villancicos CIERRAREGALO
-    | bolsaAux ABRECUENTO listaDeRegalos CIERRACUENTO ABREREGALO villancicos CIERRAREGALO ;
+    | bolsaAux ABRECUENTO listaDeRegalos CIERRACUENTO ABREREGALO villancicos CIERRAREGALO;
 
 //Creacion de una o varias funciones
 bolsanavidena ::= bolsanavidenaAux | bolsanavidena bolsanavidenaAux ;
@@ -149,7 +150,7 @@ listaDeRegalos ::= listaDeRegalosAux
 
 //Sentencia variables, funciones, asignaciones
 adornoAux ::= llamadaASanta | infoTrineo | decorarGalleta | leerCarta | escribirCarta | decoracionesNav
-    |CORTA | ENVIA PERSONA | ENVIA tlsantaclaus ;
+    |CORTA | ENVIA PERSONA | ENVIA tlsantaclaus;
 
 adorno ::= adornoAux FINREGALO | luces;
 
@@ -157,8 +158,9 @@ adorno ::= adornoAux FINREGALO | luces;
 villancicos ::= adorno | villancicos adorno ;
 
 //Llamada de Funcion
-llamadaASantaAux ::= PERSONA:lst {:RESULT = lst;:} ;
-llamadaASanta ::= llamadaASantaAux ABRECUENTO listaDeTamales CIERRACUENTO | llamadaASantaAux ABRECUENTO CIERRACUENTO ;
+PersonaAux ::= PERSONA:p {: System.out.println(p);:};
+llamadaASanta ::= PersonaAux ABRECUENTO listaDeTamales CIERRACUENTO 
+            | PersonaAux ABRECUENTO CIERRACUENTO ;
 
 //Argumentos (tipo identificador)
 listaDeTamalesAux ::= PERSONA | tlsantaclaus ;
@@ -193,7 +195,7 @@ ayudanteDeGalleta ::= LOCAL tsantaclaus:tsan PERSONA:per
             :};
 
 decorarGalleta ::= ayudanteDeGalleta 
-                |ayudanteDeGalleta ENTREGA tlsantaclaus 
+                |ayudanteDeGalleta ENTREGA tlsantaclaus:tls {: System.out.println(tls);:}
                 |ayudanteDeGalleta ENTREGA whoVille
                 |ayudanteDeGalleta ENTREGA gingerBread ;
 
@@ -220,30 +222,71 @@ leerCarta ::= ESCUCHA ABRECUENTO PERSONA CIERRACUENTO ;
 //Escritura
 escribirCarta ::= NARRA ABRECUENTO mensaje CIERRACUENTO ;
 
-//Unarias
+//Operaciones Unarias
 decoracionesNav ::= decoracionesF | decoracionI;
 decoracionesF ::= decoracionF | decoracion ;
-decoracion ::= ornamentosUnicos PERSONA ;
-decoracionIAux ::= ornamentosUnicos | TURENO ;
-decoracionI ::= decoracionIAux l_SANTA_CLAUS ;
-decoracionF::= TURENO l_PAPA_NOEL ;
+decoracion ::= ornamentosUnicos:om PERSONA:p {:System.out.println(om); System.out.println(p);:};
+decoracionIAux ::= ornamentosUnicos:om {:System.out.println(om);:} | TURENO:tr {:System.out.println(tr);:} ;
+decoracionI ::= decoracionIAux l_SANTA_CLAUS:ls {:System.out.println(ls);:} ;
+decoracionF::= TURENO:tr l_PAPA_NOEL:lp {:System.out.println(tr); System.out.println(lp);:} ;
 
-//Operaciones aritmeticas  
+//Operaciones aritmeticas
 
-CindyLuWho ::= CindyLuWho RODOLFO CindyLuWho | CindyLuWhoS RODOLFO CindyLuWhoS| whoVille RODOLFO CindyLuWho| CindyLuWhoS
-            | CindyLuWho TURENO CindyLuWho | CindyLuWhoS TURENO CindyLuWhoS| whoVille TURENO CindyLuWho;
-CindyLuWhoS ::= CindyLuWhoS COMETA CindyLuWhoS |CindyLuWhoS DASHER CindyLuWhoS| CindyLuWhoS DANCER CindyLuWhoS| CindyLuWhoT ;
-CindyLuWhoT ::=  CindyLuWhoT PRANCER CindyLuWhoT | SantaMate | whoVille;
+rodolfoAux ::= RODOLFO:rd {: System.out.println(rd);:};
+turenoAux ::= TURENO:tr {: System.out.println(tr);:};
+cometaAux ::= COMETA:cm {: System.out.println(cm);:};
+dasherAux ::= DASHER:ds {: System.out.println(ds);:};
+dancerAux ::= DANCER:dc {: System.out.println(dc);:};
+prancerAux ::= PRANCER:pr {: System.out.println(pr);:};
 
-whoVille ::= ABRECUENTO CindyLuWho CIERRACUENTO;
-            
+CindyLuWho ::= CindyLuWho rodolfoAux CindyLuWho 
+            | CindyLuWhoS rodolfoAux CindyLuWhoS
+            | whoVille rodolfoAux CindyLuWho
+            | CindyLuWhoS
+            | CindyLuWho turenoAux CindyLuWho 
+            | CindyLuWhoS turenoAux CindyLuWhoS
+            | whoVille turenoAux CindyLuWho;
+CindyLuWhoS ::= CindyLuWhoS cometaAux CindyLuWhoS 
+            |CindyLuWhoS dasherAux CindyLuWhoS
+            | CindyLuWhoS dancerAux CindyLuWhoS
+            | CindyLuWhoT ;
+CindyLuWhoT ::=  CindyLuWhoT prancerAux CindyLuWhoT
+            | SantaMateAux 
+            | whoVille;
+
+whoVille ::= ABRECUENTO:ac {: System.out.println(ac);:} CindyLuWho CIERRACUENTO:cc {: System.out.println(cc);:};
+
+//Auxiliares con impresion
+SantaMateAux ::= SantaMate:sm {: System.out.println(sm);:};
+workshopAux ::= workshop:wk {: System.out.println(wk);:};
+yellowSnowAux ::= yellowSnow:ys {: System.out.println(ys);:};
+
+//Operaciones Relacionales
+sugar ::= SantaMateAux workshopAux SantaMateAux 
+        | whoVille workshopAux SantaMateAux 
+        | SantaMateAux workshopAux whoVille 
+        | whoVille workshopAux whoVille ;
+
+//Operaciones Logicas       
+candy ::= sugar 
+        | BALTAZAR:bz sugar {: System.out.println(bz);:}
+        | PERSONA:p {: System.out.println(p);:}
+        | BALTAZAR:bz PERSONA:p {: System.out.println(bz); System.out.println(p);:}
+        | naughtyOrNice:nn {: System.out.println(nn);:}
+        | BALTAZAR:bz naughtyOrNice:nn {: System.out.println(bz); System.out.println(nn);:}
+        | llamadaASanta 
+        | BALTAZAR:bz llamadaASanta {: System.out.println(bz);:}
+        | candyBox;
+
+candyCane ::= candy 
+        | candy yellowSnowAux candyCane ;
+
+candyBox ::= ABREREGALO:ar {: System.out.println(ar);:} candyCane CIERRAREGALO:cr {: System.out.println(cr);:}
+        | BALTAZAR:bz ABREREGALO:ar candyCane CIERRAREGALO:cr {: System.out.println(bz);  System.out.println(ar);  System.out.println(cr);:} ;
+
 //Operaciones logicas
-sugar ::= SantaMate workshop SantaMate | whoVille workshop SantaMate | SantaMate workshop whoVille | whoVille workshop whoVille ;
-candy ::= sugar | BALTAZAR sugar | PERSONA | BALTAZAR PERSONA | naughtyOrNice | BALTAZAR naughtyOrNice | llamadaASanta | BALTAZAR llamadaASanta | candyBox;
-candyCane ::= candy | candy yellowSnow candyCane ;
-candyBox ::= ABREREGALO candyCane CIERRAREGALO | BALTAZAR ABREREGALO candyCane CIERRAREGALO ;
-gingerBread ::= candyBox | candyBox yellowSnow gingerBread ;
-
+gingerBread ::= candyBox 
+        | candyBox yellowSnowAux gingerBread ;
 
 luces ::= 
     if|
@@ -258,18 +301,18 @@ tsantaclaus ::=
     SANTA:tsc {:RESULT = tsc;:};
 
 tlsantaclaus ::=
-    l_SANTA_CLAUS|
-    l_PAPA_NOEL|
-    l_SANTA|
-    l_TFATHER_CHRISTMAS|
-    l_FFATHER_CHRISTMAS|
-    l_SAN_NICOLAS;
+    l_SANTA_CLAUS:tls {:RESULT = tls;:}|
+    l_PAPA_NOEL:tls {:RESULT = tls;:}|
+    l_SANTA:tls {:RESULT = tls;:}|
+    l_TFATHER_CHRISTMAS:tls {:RESULT = tls;:}|
+    l_FFATHER_CHRISTMAS:tls {:RESULT = tls;:}|
+    l_SAN_NICOLAS:tls {:RESULT = tls;:};
 
 SantaMate ::= l_SANTA_CLAUS:lst {:RESULT = lst;:}|
     l_PAPA_NOEL:lst {:RESULT = lst;:}|
     PERSONA:lst {:RESULT = lst;:}|
     decoracionesNav|
-    llamadaASanta:lst {:RESULT = lst;:} ;
+    llamadaASanta;
 
 SantaArreglo ::= 
     l_SANTA_CLAUS|
@@ -282,20 +325,20 @@ mensaje ::=
     PERSONA;
 
 ornamentosUnicos ::=
-    QUIEN|
-    GRINCH;
+    QUIEN:om {:RESULT = om;:}|
+    GRINCH:om {:RESULT = om;:};
 
 workshop::=
-    SUGARPLUM|
-    SNOWBALL|
-    WUNORSE|
-    BUSHY|
-    PEPPER|
-    SHINNY;
+    SUGARPLUM:w {:RESULT = w;:}|
+    SNOWBALL:w {:RESULT = w;:}|
+    WUNORSE:w {:RESULT = w;:}|
+    BUSHY:w {:RESULT = w;:}|
+    PEPPER:w {:RESULT = w;:}|
+    SHINNY:w {:RESULT = w;:};
 
-yellowSnow::= MELCHOR|
-    GASPAR;
+yellowSnow::= MELCHOR:ys {:RESULT = ys;:}|
+    GASPAR:ys {:RESULT = ys;:};
 
 naughtyOrNice::= 
-    l_FFATHER_CHRISTMAS|
-    l_TFATHER_CHRISTMAS;
+    l_FFATHER_CHRISTMAS:lf {:RESULT = lf;:}|
+    l_TFATHER_CHRISTMAS:lt {:RESULT = lt;:};

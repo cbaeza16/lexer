@@ -14,9 +14,6 @@ function boolean test (){
     @Prueba de operaciones logicas
     @variables or boolean expresion and/or ... (no se permite el uso de parentesis, solo para expresiones aritmeticas)
     @cada operacion booleana debe estar entre {}
-    
-    @ERROR
-    3+2
     local int test1 <=  {3 < 4} |
     local int test1 <=  {4 => 18.5} |
     local int test1 <= {8 != var # 2 == 4} |
@@ -36,7 +33,7 @@ function int sum (int num1, int num2) {
     @NOTA: Siempre entre parentesis ( )
     @TODO: toma el 8+9 como float
     local int test1 <= (4 + 2 + 9 - - 3 / 5) |
-    local int test2 <= (6) |
+    local int test2 <= (6)|
     local int test1 <= ((7 + 8 - 4)) |
     local int test1 <= (4 - (8 + 5.26 * 3)) |
     local int test1 <= (3 + 8 - 9.5 + (4 + 8) + 8 - (9 * 10)) |

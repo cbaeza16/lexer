@@ -84,8 +84,8 @@ whitespace = [ \t\n]
 <YYINITIAL> "string"              { return symbol(sym.SAN_NICOLAS, yytext()); }
 <YYINITIAL> "char"              { return symbol(sym.SANTA, yytext()); }
 
-<YYINITIAL> "true"              { return symbol(sym.l_TFATHER_CHRISTMAS); }
-<YYINITIAL> "false"              { return symbol(sym.l_FFATHER_CHRISTMAS); }
+<YYINITIAL> "true"              { return symbol(sym.l_TFATHER_CHRISTMAS, yytext()); }
+<YYINITIAL> "false"              { return symbol(sym.l_FFATHER_CHRISTMAS, yytext()); }
 
 <YYINITIAL> "function"              { return symbol(sym.FUNCTION); }
 <YYINITIAL> "local"              { return symbol(sym.LOCAL); }
@@ -119,9 +119,9 @@ whitespace = [ \t\n]
   /* operadores */
   "<="                            { return symbol(sym.ENTREGA); }
   "+"                            { return symbol(sym.RODOLFO, yytext()); }
-  "++"                           { return symbol(sym.QUIEN);}
+  "++"                           { return symbol(sym.QUIEN, yytext());}
   "-"                            { return symbol(sym.TURENO, yytext());}
-  "--"                           { return symbol(sym.GRINCH); }
+  "--"                           { return symbol(sym.GRINCH, yytext()); }
   "*"                            { return symbol(sym.COMETA, yytext()); }
   "/"                            { return symbol(sym.DASHER, yytext()) ;}
   ","                            { return symbol(sym.BASTON);}
@@ -129,25 +129,25 @@ whitespace = [ \t\n]
   "**"                            { return symbol(sym.PRANCER, yytext());}     
   
   /* relacionales */
-  "=="                           { return symbol(sym.SNOWBALL); }
-  "<"                           { return symbol(sym.BUSHY); }
-  "=<"                           { return symbol(sym.PEPPER); }
-  ">"                           { return symbol(sym.SUGARPLUM); }
-  "=>"                           { return symbol(sym.SHINNY); }
-  "!="                           { return symbol(sym.WUNORSE); }
+  "=="                           { return symbol(sym.SNOWBALL, yytext()); }
+  "<"                           { return symbol(sym.BUSHY, yytext()); }
+  "=<"                           { return symbol(sym.PEPPER, yytext()); }
+  ">"                           { return symbol(sym.SUGARPLUM, yytext()); }
+  "=>"                           { return symbol(sym.SHINNY, yytext()); }
+  "!="                           { return symbol(sym.WUNORSE, yytext()); }
 
   /* logicos */ 
-  "#"                           { return symbol(sym.MELCHOR); }
-  "^"                           { return symbol(sym.GASPAR); }
-  "!"                           { return symbol(sym.BALTAZAR); }
+  "#"                           { return symbol(sym.MELCHOR, yytext()); }
+  "^"                           { return symbol(sym.GASPAR, yytext()); }
+  "!"                           { return symbol(sym.BALTAZAR, yytext()); }
  
   /* parentesis*/
-  "("                           { return symbol(sym.ABRECUENTO); }
-  ")"                           { return symbol(sym.CIERRACUENTO); }
+  "("                           { return symbol(sym.ABRECUENTO, yytext()); }
+  ")"                           { return symbol(sym.CIERRACUENTO, yytext()); }
   "["                           { return symbol(sym.ABREEMPAQUE); }
   "]"                           { return symbol(sym.CIERRAEMPAQUE); }
-  "{"                           { return symbol(sym.ABREREGALO); }
-  "}"                           { return symbol(sym.CIERRAREGALO); }
+  "{"                           { return symbol(sym.ABREREGALO, yytext()); }
+  "}"                           { return symbol(sym.CIERRAREGALO, yytext()); }
 
   /* final de expresion */
   "|"                           { return symbol(sym.FINREGALO); }
