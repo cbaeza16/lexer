@@ -1313,7 +1313,7 @@ public class Lexer implements java_cup.runtime.Scanner {
           // fall through
           case 100: break;
           case 41:
-            { return symbol(sym.l_SANTA);
+            { return symbol(sym.l_SANTA, yytext());
             }
           // fall through
           case 101: break;

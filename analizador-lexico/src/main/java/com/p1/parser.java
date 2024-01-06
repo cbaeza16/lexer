@@ -654,17 +654,17 @@ public class parser extends java_cup.runtime.lr_parser {
 class CUP$parser$actions {
 
 
-    //Nombre y lista de identificadores de la funcion
+    //Hasmap con nombre y lista de identificadores de la funcion
     HashMap<String, ArrayList<String>> listaTablasSimbolos = new HashMap<String, ArrayList<String>>();
     //Funcion actual
-    String currentHash;
+    String currentFunction;
 
     //Funcion para imprimir tabla de simbolos
     public void imprimirTablaSimbolos(){
-        for (String key: listaTablasSimbolos.keySet()){
-            System.out.println("Tabla de simbolo : " + key);
+        for (String name: listaTablasSimbolos.keySet()){
+            System.out.println("Tabla de simbolo: " + name);
             System.out.println("Valores : ");
-            for (String item : listaTablasSimbolos.get(key)){
+            for (String item : listaTablasSimbolos.get(name)){
                 System.out.println(item);
             }
             System.out.println("");
@@ -767,12 +767,12 @@ class CUP$parser$actions {
             {
               Object RESULT =null;
 		
-                //System.out.println("NuevaFuncion");
-                String tipoTabla = "tipo:main";
+                System.out.println("Inicio de funcion Main");
+                String tipoTabla = "Tipo:main";
                 ArrayList<String> funcionMain = new ArrayList<String>();
-                currentHash = "main";
+                currentFunction = "main";
                 funcionMain.add(tipoTabla);
-                listaTablasSimbolos.put(currentHash, funcionMain);
+                listaTablasSimbolos.put(currentFunction, funcionMain);
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("mainNavidadAux",5, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -798,13 +798,13 @@ class CUP$parser$actions {
 		int perright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object per = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-                //System.out.println("NuevaFuncion");
+                System.out.println("Inicio de funcion " + per.toString());
                 String tipoTabla = "";
-                tipoTabla = "tipo:funcion:"+tsc.toString();
+                tipoTabla = "Tipo:function - "+"Retorna:"+tsc.toString();
                 ArrayList<String> funcionMain = new ArrayList<String>();
-                currentHash = per.toString();
+                currentFunction = per.toString();
                 funcionMain.add(tipoTabla);
-                listaTablasSimbolos.put(currentHash, funcionMain);
+                listaTablasSimbolos.put(currentFunction, funcionMain);
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("bolsaAux",7, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -857,7 +857,7 @@ class CUP$parser$actions {
 		int perright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object per = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-                listaTablasSimbolos.get(currentHash).add("tipo:Param:"+per.toString()+":"+tsan.toString());
+                listaTablasSimbolos.get(currentFunction).add("Tipo:Param - "+ "ID:" +per.toString()+":"+tsan.toString());
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("listaDeRegalosAux",10, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -1120,7 +1120,7 @@ class CUP$parser$actions {
 		int perright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		Object per = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		
-                listaTablasSimbolos.get(currentHash).add("tipo:LocalArray:"+per.toString()+":"+tsan.toString());
+                listaTablasSimbolos.get(currentFunction).add("Tipo:LocalArray - "+ "ID:" +per.toString()+":"+tsan.toString());
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("trineo",20, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -1173,7 +1173,7 @@ class CUP$parser$actions {
 		int perright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object per = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-                listaTablasSimbolos.get(currentHash).add("tipo:Local:"+per.toString()+":"+tsan.toString());
+                listaTablasSimbolos.get(currentFunction).add("Tipo:Local - "+ "ID:" +per.toString()+":"+tsan.toString());
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("ayudanteDeGalleta",22, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }

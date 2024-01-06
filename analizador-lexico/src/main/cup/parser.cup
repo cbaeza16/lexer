@@ -10,17 +10,17 @@ import java.util.ArrayList;
 
 
 action code {:
-    //Nombre y lista de identificadores de la funcion
+    //Hasmap con nombre y lista de identificadores de la funcion
     HashMap<String, ArrayList<String>> listaTablasSimbolos = new HashMap<String, ArrayList<String>>();
     //Funcion actual
-    String currentHash;
+    String currentFunction;
 
     //Funcion para imprimir tabla de simbolos
     public void imprimirTablaSimbolos(){
-        for (String key: listaTablasSimbolos.keySet()){
-            System.out.println("Tabla de simbolo : " + key);
+        for (String name: listaTablasSimbolos.keySet()){
+            System.out.println("Tabla de simbolo: " + name);
             System.out.println("Valores : ");
-            for (String item : listaTablasSimbolos.get(key)){
+            for (String item : listaTablasSimbolos.get(name)){
                 System.out.println(item);
             }
             System.out.println("");
@@ -77,6 +77,7 @@ terminal FINREGALO;
 
 
 //-----Simbolos no terminales navideños------
+
 non terminal tsantaclaus, tlsantaclaus;
 non terminal navidad, navidadAux, mainNavidad, mainNavidadAux, bolsanavidena, bolsaAux, bolsanavidenaAux, listaDeRegalos, listaDeRegalosAux,
 listaDeTamalesAux, listaDeTamales, llamadaASanta, PersonaAux, listaAmigos, acceso_trineo, llenar_trineo, colocar_trineo, SantaArreglo, trineo, 
@@ -85,13 +86,14 @@ decoracionesF, decoracion, decoracionIAux, decoracionI, decoracionF, decoracione
 sugar, candy, candyCane, candyBox, gingerBread, adornoAux, naughtyOrNice, CindyLuWhoS, CindyLuWhoT, SantaMateAux, workshopAux, yellowSnowAux,
 rodolfoAux, turenoAux, cometaAux, dasherAux, dancerAux, prancerAux, adorno, villancicos, infoTrineo;
 
+//-----Precedencias------
 precedence left RODOLFO, TURENO;
 precedence left COMETA, DASHER, DANCER;
 precedence left PRANCER;
 
 start with navidad;
 
-//Programa Simbolo inicial = navidad (puede correr funcion principal)
+//Programa Simbolo inicial = navidad
 navidad ::= {:
         System.out.println("-------Inicio Fase Sintactica-------");
         System.out.println(" ");
@@ -110,12 +112,12 @@ navidadAux ::= mainNavidad|
 //Funcion Main
 mainNavidadAux ::= FUNCTION MAIN ABRECUENTO CIERRACUENTO 
             {:
-                //System.out.println("NuevaFuncion");
-                String tipoTabla = "tipo:main";
+                System.out.println("Inicio de funcion Main");
+                String tipoTabla = "Tipo:main";
                 ArrayList<String> funcionMain = new ArrayList<String>();
-                currentHash = "main";
+                currentFunction = "main";
                 funcionMain.add(tipoTabla);
-                listaTablasSimbolos.put(currentHash, funcionMain);
+                listaTablasSimbolos.put(currentFunction, funcionMain);
             :};
 
 mainNavidad ::= mainNavidadAux ABREREGALO villancicos CIERRAREGALO ;
@@ -123,13 +125,13 @@ mainNavidad ::= mainNavidadAux ABREREGALO villancicos CIERRAREGALO ;
 
 bolsaAux ::= FUNCTION tsantaclaus:tsc  PERSONA:per
             {:
-                //System.out.println("NuevaFuncion");
+                System.out.println("Inicio de funcion " + per.toString());
                 String tipoTabla = "";
-                tipoTabla = "tipo:funcion:"+tsc.toString();
+                tipoTabla = "Tipo:function - "+"Retorna:"+tsc.toString();
                 ArrayList<String> funcionMain = new ArrayList<String>();
-                currentHash = per.toString();
+                currentFunction = per.toString();
                 funcionMain.add(tipoTabla);
-                listaTablasSimbolos.put(currentHash, funcionMain);
+                listaTablasSimbolos.put(currentFunction, funcionMain);
             :};
 
 //Creacion de funciones con palabra resevada "function" tipo identificador (parametros) {cuerpo}
@@ -142,7 +144,7 @@ bolsanavidena ::= bolsanavidenaAux | bolsanavidena bolsanavidenaAux ;
 //Parametros (tipo identificador)
 listaDeRegalosAux ::= tsantaclaus: tsan PERSONA: per 
             {:
-                listaTablasSimbolos.get(currentHash).add("tipo:Param:"+per.toString()+":"+tsan.toString());
+                listaTablasSimbolos.get(currentFunction).add("Tipo:Param - "+ "ID:" +per.toString()+":"+tsan.toString());
             :};
 
 listaDeRegalos ::= listaDeRegalosAux
@@ -182,7 +184,7 @@ colocar_trineo ::= PERSONA ENTREGA ABREEMPAQUE listaAmigos CIERRAEMPAQUE ;
 
 trineo ::= LOCAL tsantaclaus:tsan PERSONA:per ABREEMPAQUE l_SANTA_CLAUS CIERRAEMPAQUE 
             {:
-                listaTablasSimbolos.get(currentHash).add("tipo:LocalArray:"+per.toString()+":"+tsan.toString());
+                listaTablasSimbolos.get(currentFunction).add("Tipo:LocalArray - "+ "ID:" +per.toString()+":"+tsan.toString());
             :};
 
 infoTrineo ::= trineo | llenar_trineo | acceso_trineo | colocar_trineo ;
@@ -191,7 +193,7 @@ infoTrineo ::= trineo | llenar_trineo | acceso_trineo | colocar_trineo ;
 
 ayudanteDeGalleta ::= LOCAL tsantaclaus:tsan PERSONA:per 
             {:
-                listaTablasSimbolos.get(currentHash).add("tipo:Local:"+per.toString()+":"+tsan.toString());
+                listaTablasSimbolos.get(currentFunction).add("Tipo:Local - "+ "ID:" +per.toString()+":"+tsan.toString());
             :};
 
 decorarGalleta ::= ayudanteDeGalleta 

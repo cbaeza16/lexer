@@ -110,7 +110,7 @@ whitespace = [ \t\n]
   /* literales */
   {IntegerLiteral}            { return symbol(sym.l_SANTA_CLAUS, yytext()); }
   {FloatLiteral}            { return symbol(sym.l_PAPA_NOEL, yytext()); }
-  {letter}            { return symbol(sym.l_SANTA); }
+  {letter}            { return symbol(sym.l_SANTA, yytext()); }
 
   \"                             { string.setLength(0); yybegin(STRING); }
 
