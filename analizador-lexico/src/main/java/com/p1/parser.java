@@ -636,6 +636,8 @@ public class parser extends java_cup.runtime.lr_parser {
 
 
     Lexer lex;
+    int cont = 0;
+    String errorManager ="";
 
     @SuppressWarnings("deprecation")
     public parser(Lexer lex){
@@ -645,7 +647,8 @@ public class parser extends java_cup.runtime.lr_parser {
 
     //Funcion para manejar errores sintacticos
     public void syntax_error(Symbol s){
-        System.out.println("Error Sintáctico: " + "\""+ s.value + "\"" + " Linea: "+(s.left+1)+" Columna: "+(s.right+1) + "\n");
+        this.cont += 1;
+        this.errorManager += "Error Sintáctico: " + "\""+ s.value + "\"" + " Linea: "+(s.left+1)+" Columna: "+(s.right+1) + "\n";
     }
 
 
@@ -658,6 +661,7 @@ class CUP$parser$actions {
     HashMap<String, ArrayList<String>> listaTablasSimbolos = new HashMap<String, ArrayList<String>>();
     //Funcion actual
     String currentFunction;
+    
 
     //Funcion para imprimir tabla de simbolos
     public void imprimirTablaSimbolos(){
@@ -730,6 +734,11 @@ class CUP$parser$actions {
         System.out.println(" ");
         imprimirTablaSimbolos();
         System.out.println("-------Fin Fase Sintactica-------");
+        System.out.println(" ");
+        if(cont == 0) System.out.println("[Done] El archivo puede ser leido con exito");
+        else System.out.println("[Warning] El archivo presenta " + String.valueOf(cont) + " errores sintacticos");
+        System.out.println(errorManager);
+        System.out.println(" ");
     
               CUP$parser$result = parser.getSymbolFactory().newSymbol("navidad",2, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }

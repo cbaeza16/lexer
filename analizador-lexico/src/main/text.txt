@@ -27,6 +27,8 @@ function boolean test (){
     @Prueba combinacion artmetica unaria y binaria, y logica
     local int test1 <= { 1 == (test +  ++prueba) ^ tomato < 4 # 25 != 4} |
 }
+@ERROR
+wuju
 
 function int sum (int num1, int num2) {
     @Prueba de aritmetica
