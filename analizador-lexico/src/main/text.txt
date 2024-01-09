@@ -5,6 +5,7 @@ function int hola () {
     return tom |
     return 29 |
     return false |
+    return |
 }
 
 @ERROR
@@ -16,6 +17,12 @@ function boolean test (){
     @cada operacion booleana debe estar entre {}
     local int test1 <=  {3 < 4} |
     local int test1 <=  {4 => 18.5} |
+    test2 <=  {4 => 18.5} |
+    test3 <=  6 |
+    test3 <=  "hola" |
+    test3 <=  "!" |
+    test3 <=  'c' |
+    test3 <=  '!' |
     local int test1 <= {8 != var # 2 == 4} |
     local int test1 <= {var # var1 != 4} |
     local int test1 <= {test2 # 28 > 6} |
@@ -38,6 +45,7 @@ function int sum (int num1, int num2) {
     local int test2 <= (6)|
     local int test1 <= ((7 + 8 - 4)) |
     local int test1 <= (4 - (8 + 5.26 * 3)) |
+    local int test1 <= (4 - (8 + 5.26 * trineo1[2])) |
     local int test1 <= (3 + 8 - 9.5 + (4 + 8) + 8 - (9 * 10)) |
     local int test1 <= (((4 / 3 + 19)) + 8 - 9**8 + (8 / 9) - 3) |
 
@@ -55,6 +63,11 @@ function int prueba (boolean var1) {
     trineo2  <= [6, 3] |
     local char dave <= 'l' |
     trineo2  <= ['h','i'] |
+    @local int trineo1[2] <= ['h','i']|
+
+    miFunc('a', miFunc(), trineo1[2])|
+    
+    
     
     @Pruebas variables
     local int var5 |
@@ -75,23 +88,24 @@ function int holaa (int var2, boolean var3, int var4) {
 
     if ({3 < 4} ){
         hola(var1, var2) |
-    } else {
+    } | else {
         hola(var1, var2) |
     }  | 
 
     if ({3 < 4} ){
         hola(var1, var2) |
-    }elif({3 < 4} ){
+    }| elif({3 < 4} ){
         hola(var1, var2) |
-    }elif({3 < 4} ){
+    }| elif({3 < 4} ){
         hola(var1, var2) |
-    } 
+    } |
     else {
         hola(var1, var2) |
     } |
 
 
     do {hola(var1, var2)| } until ({3 < 4} ) |
+    
     do {hola(var1, var2)| } until ({3 < 4} ) |
 
     for (local int i <= 0 , {i < 10} , ++ i ) {
@@ -101,14 +115,13 @@ function int holaa (int var2, boolean var3, int var4) {
     ++ hola |
     -- 5 |
     - 4.03 |
-    
+       
 }
-
 
 function main() {
     if ({3 < 4}){
         hola(var1, var2) |
-    } else {
+    } |else {
         hola(var1, var2) |
     } |
 }
@@ -123,3 +136,4 @@ function main() {
  @ hola kksd k3 4.5 .
 
  /_ hola _/ 
+ 

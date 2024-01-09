@@ -66,7 +66,7 @@ digit =[0-9]
 noCeroDigit = [1-9]
 IntegerLiteral = (0|-?{noCeroDigit}{digit}*)
 FloatLiteral = (0.0|-?{noCeroDigit}{digit}*.{digit}+|-?0.0*{noCeroDigit})
-letter = \'[a-zA-Z]\'
+letter = \'.\'
 whitespace = [ \t\n]
 
 
